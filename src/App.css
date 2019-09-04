@@ -1,0 +1,35 @@
+.app {
+  display: grid;
+  grid-template-areas:
+  "header header header"
+  "main main main"
+  "footer footer footer";
+  grid-template-columns: 20% 1fr 15%;
+  grid-template-rows: 1fr 5fr 1fr;
+}
+
+.header {
+  grid-area: header;
+}
+
+.main {
+  display: grid;
+  grid-template-areas:
+  "sidebar content content";
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-area: main;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.content {
+  grid-area: content;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+
