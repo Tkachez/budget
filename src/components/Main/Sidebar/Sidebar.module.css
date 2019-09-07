@@ -1,0 +1,4 @@
+.sidebar {
+    background-color: darkorange;
+    grid-area: sidebar;
+}

@@ -1,0 +1,7 @@
+.main {
+    display: grid;
+    grid-template-areas:
+            "sidebar content content";
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-area: main;
+}
