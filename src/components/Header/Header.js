@@ -1,34 +1,24 @@
-import React, {Component} from 'react';
-import './Header.module.css'
-
+import React, { Component } from 'react';
+import header from './Header.module.css';
+import { Logo, Navigation, Search } from './index';
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isToggled: true
-        };
-
-        this.handleClick = this.handleClick.bind(this);
+  constructor (props) {
+    super(props);
+    this.state = {
+      isToggled: true
     };
+  };
 
-    handleClick = () => {
-        this.setState(state => ({
-            isToggled: !state.isToggled
-        }));
-    };
-
-    render() {
-        return (
-            <header className="header">
-                This is Header!
-                <button
-                    onClick={this.handleClick}>
-                    {this.state.isToggled ? 'Click' : 'Clicked'}
-                </button>
-            </header>
-        );
-    };
+  render () {
+    return (
+      <header className={header.header}>
+        <Logo/>
+        <Navigation/>
+        <Search/>
+      </header>
+    );
+  };
 }
 
 export default Header;

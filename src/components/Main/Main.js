@@ -1,12 +1,12 @@
 import React from 'react';
 import Sidebar from "./Sidebar/Sidebar";
 import Content from "./Content/Content";
-import './Main.module.css'
+import main from './Main.module.css'
 
 
 const Main = () => {
     return(
-        <section className="main">
+        <section className={main.main}>
             <Sidebar />
             <Content />
         </section>
