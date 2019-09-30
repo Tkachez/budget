@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Home = () => {
-  return(
+  return (
     <div>
       This is Home!
       <div>Reports</div>

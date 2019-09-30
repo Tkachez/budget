@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Settings = () => {
-  return(
+  return (
     <div>
       This is Settings!
     </div>

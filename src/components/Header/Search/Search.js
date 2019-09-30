@@ -2,7 +2,7 @@ import React from 'react';
 import search from './Search.module.css';
 
 const Search = () => {
-  return(
+  return (
     <div className={search.search}>
       <input placeholder='Search'/>
       <img alt='' src=''/>
