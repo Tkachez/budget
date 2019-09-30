@@ -1,15 +1,14 @@
 import React from 'react';
 import Sidebar from "./Sidebar/Sidebar";
 import Content from "./Content/Content";
-import main from './Main.module.css'
+import classes from './Main.module.css';
 
-
-const Main = () => {
+const Main = (props) => {
     return(
-        <section className={main.main}>
+        <main className={classes.main}>
             <Sidebar />
-            <Content />
-        </section>
+            <Content content={props.main.content} />
+        </main>
     );
 };
 

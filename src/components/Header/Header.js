@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import header from './Header.module.css';
+import classes from './Header.module.css';
 import { Logo, Navigation, Search } from './index';
 
 class Header extends Component {
@@ -12,7 +12,7 @@ class Header extends Component {
 
   render () {
     return (
-      <header className={header.header}>
+      <header className={classes.header}>
         <Logo/>
         <Navigation/>
         <Search/>
