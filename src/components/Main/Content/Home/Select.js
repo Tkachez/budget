@@ -5,10 +5,6 @@ export default class Select extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {
-            selectValue: ''
-        };
-
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -16,15 +12,22 @@ export default class Select extends React.Component{
         <Option value={option.value} name={option.name} key={index}/>
     );
 
-    handleChange = (event) => {
-        this.setState({selectValue: event.target.value})
+    handleChange (event){
+        this.props.onSelectChange(event.target.value);
     };
+
+    onSelectChange(value) {
+        return value;
+    }
 
     render() {
         return (
-            <select value={this.state.selectValue} onChange={this.handleChange}>
-                {this.options}
-            </select>
+            <select
+                id={this.props.id}
+                value={this.props.value}
+                name={this.props.name}
+                onChange={this.handleChange}
+            >{this.options}</select>
         );
     }
 };

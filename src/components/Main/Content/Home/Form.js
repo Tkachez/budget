@@ -8,25 +8,34 @@ export default class Form extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      data: ''
+      formValue: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelectChange= this.handleSelectChange.bind(this);
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
+    alert(this.state.formValue);
+  };
+
+  handleSelectChange(value) {
+    this.setState({formValue: value});
   };
 
   render() {
-    let props = this.props;
+    const props = this.props;
+    const value = this.state.formValue;
     return(
         <form className={classes.form} onSubmit={this.handleSubmit}>
           <fieldset className={classes.fieldset}>
             <legend>Add purchase</legend>
             <label htmlFor={props.form.formIds.select}>{props.form.formLabels.select}</label>
             <Select
+                onSelectChange={ this.handleSelectChange }
                 id={props.form.formIds.select}
                 name={props.form.formNames.select}
+                value={value}
                 options={props.form.options}
             />
             <label htmlFor={props.form.formIds.value}>{props.form.formLabels.value}</label>
