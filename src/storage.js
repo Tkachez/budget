@@ -2,38 +2,50 @@ let storage = {
   searchHistory: [],
   main: {
     content: {
-      home:{
+      home: {
         label: 'home',
         form: {
-          formIds: {
-            select: 'select',
-            value: 'value',
-            comment: 'comment',
-            button: 'submit',
-          },
-          formLabels:{
-            select: 'Select purchase type',
-            value: 'Enter purchase value',
-            comment: 'Enter your comment (optional)',
-            button: 'Submit',
-          },
-          formNames: {
-            select: 'purchase-type',
-            value: 'purchase-value',
-            comment: 'purchase-comment',
-            button: 'purchase-submit',
-          },
-          options: [
-            { name: 'Bills' , value: 'bills'},
-            { name: 'Health', value: 'health'},
-            { name: 'Food', value: 'food'},
-            { name: 'Entertainment', value: 'entertainment'},
-            { name: 'Alcohol', value: 'alcohol'},
-          ],
-        },
-      },
-    },
-  },
+          items: [
+            {
+              id: 'select',
+              origin: 'select',
+              type: 'select',
+              name: 'purchase-type',
+              label: 'Select purchase type',
+              options: [
+                { name: 'Bills', value: 'bills' },
+                { name: 'Health', value: 'health' },
+                { name: 'Food', value: 'food' },
+                { name: 'Entertainment', value: 'entertainment' },
+                { name: 'Alcohol', value: 'alcohol' }
+              ]
+            },
+            {
+              id: 'cost',
+              origin: 'input',
+              type: 'number',
+              name: 'purchase-value',
+              label: 'Enter purchase value'
+            },
+            {
+              id: 'comment',
+              origin: 'input',
+              type: 'text',
+              name: 'purchase-comment',
+              label: 'Enter your comment (optional)'
+            },
+            {
+              id: 'submit',
+              origin: 'input',
+              type: 'submit',
+              name: 'purchase-submit',
+              label: 'Submit purchase'
+            }
+          ]
+        }
+      }
+    }
+  }
 };
 
 export default storage;
