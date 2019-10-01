@@ -1,0 +1,9 @@
+.select {
+    height: 35px;
+    border: 1px solid #000;
+    background-color: transparent;
+    width: 50%;
+    margin: auto;
+    font-size: 1em;
+    -webkit-appearance: none;
+}

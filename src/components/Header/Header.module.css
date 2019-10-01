@@ -1,5 +1,5 @@
 .header {
-    background-color: green;
+    background-color: #5F9EA0;
     grid-area: header;
     display: grid;
     grid-template-columns: 0.5fr 1fr 1fr;

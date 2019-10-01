@@ -11,7 +11,7 @@ let storage = {
               origin: 'select',
               type: 'select',
               name: 'purchase-type',
-              label: 'Select purchase type',
+              label: 'Purchase type',
               options: [
                 { name: 'Bills', value: 'bills' },
                 { name: 'Health', value: 'health' },
@@ -25,21 +25,21 @@ let storage = {
               origin: 'input',
               type: 'number',
               name: 'purchase-value',
-              label: 'Enter purchase value'
+              label: 'Purchase value'
             },
             {
               id: 'comment',
               origin: 'input',
               type: 'text',
               name: 'purchase-comment',
-              label: 'Enter your comment (optional)'
+              label: 'Your comment (optional)'
             },
             {
               id: 'submit',
               origin: 'input',
               type: 'submit',
               name: 'purchase-submit',
-              label: 'Submit purchase'
+              label: 'Confirm purchase'
             }
           ]
         }

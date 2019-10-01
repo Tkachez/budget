@@ -1,11 +1,12 @@
 import React from 'react';
+import classes from './Input.module.css';
 
 const Input = (props) => {
 
-  let inputChange = (event) => props.onChange(event);
+  let inputChange = (event) => props.onInputChange(event);
 
   return (
-    <input
+    <input className={classes.input}
       onChange={ inputChange }
       type={props.type}
       name={props.name}

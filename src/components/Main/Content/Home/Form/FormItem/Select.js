@@ -1,8 +1,10 @@
 import React from 'react';
 import Option from './Option';
+import classes from './Select.module.css';
 
 const Select = (props) => {
 
+  console.log(props);
   /**
    *
    */
@@ -14,13 +16,13 @@ const Select = (props) => {
    *
    * @param event
    */
-  let handleChange = (event) => props.onSelectChange(event.target.value);
+  let handleChange = (event) => props.onSelectChange(event);
 
   /**
    *
    */
   return (
-    <select
+    <select className={classes.select}
       id={props.id}
       value={props.value}
       name={props.name}

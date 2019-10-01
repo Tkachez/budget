@@ -1,0 +1,13 @@
+.input {
+    height: 35px;
+    border: 1px solid #000;
+    background-color: transparent;
+    width: 50%;
+    margin: auto;
+    -webkit-appearance: none;
+}
+
+.input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
