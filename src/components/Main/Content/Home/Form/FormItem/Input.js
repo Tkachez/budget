@@ -3,7 +3,7 @@ import classes from './Input.module.css';
 
 const Input = (props) => {
 
-  let inputChange = (event) => props.onInputChange(event);
+  let inputChange = (event) => props.onChange(event);
 
   return (
     <input className={classes.input}

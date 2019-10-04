@@ -3,8 +3,6 @@ import Option from './Option';
 import classes from './Select.module.css';
 
 const Select = (props) => {
-
-  console.log(props);
   /**
    *
    */
@@ -16,7 +14,7 @@ const Select = (props) => {
    *
    * @param event
    */
-  let handleChange = (event) => props.onSelectChange(event);
+  let handleChange = (event) => props.onChange(event);
 
   /**
    *
