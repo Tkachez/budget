@@ -1,9 +1,15 @@
-import {renderEntireTree} from './render';
-
-let storage = {
-  searchHistory: [],
+export let storage = {
   main: {
-    content: {
+    subscribe(observer) {
+      this.renderEntireTree = observer;
+    },
+    renderEntireTree(){
+      this.getContent();
+    },
+    getContent(){
+      return this._content;
+    },    
+    _content: {
       home: {
         label: 'home',
         form: {
@@ -22,8 +28,8 @@ let storage = {
                 { name: 'Alcohol', value: 'alcohol' }
               ],
               value: 'bills',
-              action: (event) => {
-                let form = storage.main.content.home.form;
+              action(event) {
+                let form = storage.main._content.home.form;
                 form.items.map(item => {
                   if(item.id === event.target.id){
                     item.value = event.target.value;
@@ -32,7 +38,7 @@ let storage = {
                   return false;
                 });
                 form.submitData.option = event.target.value;
-                renderEntireTree(storage);
+                storage.main.renderEntireTree(storage);
               }
             },
             {
@@ -43,7 +49,7 @@ let storage = {
               label: 'Purchase value',
               value: '',
               action: (event) => {
-                let form = storage.main.content.home.form;
+                let form = storage.main._content.home.form;
                 form.items.map(item => {
                   if(item.id === event.target.id){
                     item.value = event.target.value;
@@ -52,7 +58,7 @@ let storage = {
                   return false;
                 });
                 form.submitData.cost = event.target.value;
-                renderEntireTree(storage);
+                storage.main.renderEntireTree(storage);
               }
             },
             {
@@ -62,8 +68,8 @@ let storage = {
               name: 'purchase-comment',
               label: 'Your comment (optional)',
               value: '',
-              action: (event) => {
-                let form = storage.main.content.home.form;
+              action(event) {
+                let form = storage.main._content.home.form;
                 form.items.map(item => {
                   if(item.id === event.target.id){
                     item.value = event.target.value;
@@ -72,7 +78,7 @@ let storage = {
                   return false;
                 });
                 form.submitData.comment = event.target.value;
-                renderEntireTree(storage);
+                storage.main.renderEntireTree(storage);
               }
             },
             {
@@ -91,8 +97,8 @@ let storage = {
           },
           action: (event) => {
             event.preventDefault();
-            let form = storage.main.content.home.form;
-            console.log(form.items);
+            let form = storage.main._content.home.form;
+            console.log(form.submitData);
             form.items.map( item => {
               if(item.id === 'submit' || item.id === 'option' ){
                 return false;
@@ -101,12 +107,10 @@ let storage = {
                 return true;
               }
             });
-            renderEntireTree(storage);
+            storage.main.renderEntireTree(storage);
           }
         }
       }
     }
   }
 };
-
-export default storage;
