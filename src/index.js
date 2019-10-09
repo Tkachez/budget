@@ -1,17 +1,17 @@
 import './index.css';
-import { storage } from './storage';
+import storage from './storage';
 import ReactDOM from 'react-dom';
 import App from './App';
 import React from 'react';
 
 
-export let renderEntireTree = (storage) => {
+let renderEntireTree = (props) => {
   ReactDOM.render(
-    <App storage={storage}/>,
+    <App storage={props}/>,
     document.getElementById('root')
   );
 };
 
-renderEntireTree(storage);
-storage.main.subscribe(renderEntireTree);
+renderEntireTree(storage.getContent());
+storage.subscribe(renderEntireTree);
 

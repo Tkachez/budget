@@ -10,7 +10,7 @@ const App = (props) => {
       <BrowserRouter>
         <div className="app">
           <Header props={props.storage}/>
-          <Main main={props.storage.main.getContent()}/>
+          <Main main={props.storage}/>
           <Footer/>
         </div>
       </BrowserRouter>
