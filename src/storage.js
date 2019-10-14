@@ -1,12 +1,47 @@
+const changeInput = 'CHANGE-INPUT';
+const submitForm = 'SUBMIT-FORM';
+
 let storage = {
   subscribe (observer) {
-    this.renderEntireTree = observer;
+    this._renderEntireTree = observer;
   },
-  renderEntireTree () {
-    console.log('render method');
+  dispatch (action) {
+    if (action.type === changeInput) {
+      let form = this._content.home.form;
+      form.items.map(item => {
+        if (item.id === action.id) {
+          item.value = action.value;
+          return true;
+        }
+        return false;
+      });
+      console.log(this.getContent());
+      this._renderEntireTree(this.getContent());
+    } else if (action.type === submitForm) {
+      let form = this._content.home.form,
+        submitData = [];
+      form.items.map(item => {
+        if (item.id === 'submit') {
+          return false;
+        } else {
+          let element = {
+            id: item.id,
+            value: item.value
+          };
+          submitData.push(element);
+          item.id === 'option' ? item.value = 'bills' : item.value = '';
+          return true;
+        }
+
+      });
+      this._renderEntireTree(this.getContent());
+    }
   },
   getContent () {
     return this._content;
+  },
+  _renderEntireTree () {
+    console.log('render method');
   },
   _content: {
     home: {
@@ -26,18 +61,7 @@ let storage = {
               { name: 'Entertainment', value: 'entertainment' },
               { name: 'Alcohol', value: 'alcohol' }
             ],
-            value: 'bills',
-            action (event) {
-              let form = storage._content.home.form;
-              form.items.map(item => {
-                if (item.id === event.target.id) {
-                  item.value = event.target.value;
-                  return true;
-                }
-                return false;
-              });
-              storage.renderEntireTree(storage.getContent());
-            }
+            value: 'bills'
           },
           {
             id: 'cost',
@@ -45,18 +69,7 @@ let storage = {
             type: 'number',
             name: 'purchase-value',
             label: 'Purchase value',
-            value: '',
-            action: (event) => {
-              let form = storage._content.home.form;
-              form.items.map(item => {
-                if (item.id === event.target.id) {
-                  item.value = event.target.value;
-                  return true;
-                }
-                return false;
-              });
-              storage.renderEntireTree(storage.getContent());
-            }
+            value: ''
           },
           {
             id: 'comment',
@@ -64,18 +77,7 @@ let storage = {
             type: 'text',
             name: 'purchase-comment',
             label: 'Your comment (optional)',
-            value: '',
-            action (event) {
-              let form = storage._content.home.form;
-              form.items.map(item => {
-                if (item.id === event.target.id) {
-                  item.value = event.target.value;
-                  return true;
-                }
-                return false;
-              });
-              storage.renderEntireTree(storage.getContent());
-            }
+            value: ''
           },
           {
             id: 'submit',
@@ -85,31 +87,29 @@ let storage = {
             name: 'purchase-submit',
             label: 'Confirm purchase'
           }
-        ],
-        action: (event) => {
-          event.preventDefault();
-          let form = storage._content.home.form,
-            submitData = [];
-          form.items.map(item => {
-            if(item.id === 'submit'){
-              return false;
-            } else {
-              let element = {
-                id: item.id,
-                value: item.value
-              };
-              submitData.push(element);
-              item.id === 'option' ? item.value = 'bills' : item.value = '';
-              return true;
-            }
-
-          });
-          storage.renderEntireTree(storage.getContent());
-        }
+        ]
       }
     }
   }
 };
 
-window.state = storage.getContent();
+export const inputChangeActionCreator = (id, value) => {
+  return (
+    {
+      id: id,
+      type: changeInput,
+      value: value
+    }
+  );
+};
+
+export const submitFormActionCreator = () => {
+  return (
+    {
+      type: submitForm
+    }
+  );
+};
+
+
 export default storage;

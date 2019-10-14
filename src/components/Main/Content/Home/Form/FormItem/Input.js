@@ -1,9 +1,14 @@
 import React from 'react';
 import classes from './Input.module.css';
+import { inputChangeActionCreator } from '../../../../../../storage';
 
 const Input = (props) => {
 
-  let inputChange = (event) => props.onChange(event);
+  let inputChange = (event) => {
+    let value = event.target.value,
+      id= event.target.id;
+    props.dispatch(inputChangeActionCreator(id,value));
+  };
 
   return (
     <input className={classes.input}

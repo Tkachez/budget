@@ -7,7 +7,7 @@ const Main = (props) => {
     return(
         <main className={classes.main}>
             <Sidebar />
-            <Content content={props.main} />
+            <Content content={props.main} dispatch={props.dispatch} />
         </main>
     );
 };

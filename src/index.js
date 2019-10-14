@@ -7,7 +7,7 @@ import React from 'react';
 
 let renderEntireTree = (props) => {
   ReactDOM.render(
-    <App storage={props}/>,
+    <App storage={props} dispatch={storage.dispatch.bind(storage)}/>,
     document.getElementById('root')
   );
 };
