@@ -2,9 +2,19 @@ const changeInput = 'CHANGE-INPUT';
 const submitForm = 'SUBMIT-FORM';
 
 let storage = {
+
+  /**
+   *
+   * @param observer
+   */
   subscribe (observer) {
     this._renderEntireTree = observer;
   },
+
+  /**
+   *
+   * @param action
+   */
   dispatch (action) {
     if (action.type === changeInput) {
       let form = this._content.home.form;
@@ -15,34 +25,71 @@ let storage = {
         }
         return false;
       });
-      console.log(this.getContent());
       this._renderEntireTree(this.getContent());
     } else if (action.type === submitForm) {
       let form = this._content.home.form,
         submitData = [];
       form.items.map(item => {
-        if (item.id === 'submit') {
-          return false;
-        } else {
-          let element = {
-            id: item.id,
-            value: item.value
-          };
-          submitData.push(element);
-          item.id === 'option' ? item.value = 'bills' : item.value = '';
-          return true;
-        }
-
+          let validate = this._validateForm(item);
+          return validate ? submitData.push(item) : this._showValidationError(item);
       });
+      this._clearForm();
       this._renderEntireTree(this.getContent());
     }
   },
+
+  /**
+   *
+   * @return {storage._content|{home}}
+   */
   getContent () {
     return this._content;
   },
+
+  /**
+   *
+   * @private
+   */
   _renderEntireTree () {
     console.log('render method');
   },
+
+  /**
+   *
+   * @private
+   */
+  _clearForm () {
+    let items = this._content.home.form.items;
+    items.map(item => {
+      if(item.id === 'submit'){
+        return false;
+      }
+      return item.id === 'option' ? item.value = 'bills' : item.value = '';
+    });
+  },
+
+  /**
+   *
+   * @param item
+   * @return {boolean}
+   * @private
+   */
+  _validateForm(item) {
+     return item.value !== '' || item.id === 'comment';
+  },
+
+  /**
+   *
+   * @param item
+   * @private
+   */
+  _showValidationError (item) {
+    alert(`${item.id} can not be empty`);
+  },
+
+  /**
+   *
+   */
   _content: {
     home: {
       label: 'home',
@@ -110,6 +157,5 @@ export const submitFormActionCreator = () => {
     }
   );
 };
-
 
 export default storage;

@@ -15,3 +15,4 @@ let renderEntireTree = (props) => {
 renderEntireTree(storage.getContent());
 storage.subscribe(renderEntireTree);
 
+
