@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Input.module.css';
-import { inputChangeActionCreator } from '../../../../../../storage';
+import { inputsChangeActionCreator } from '../../../../../../redux/home-form-reducer';
 
 const Input = (props) => {
 
@@ -11,7 +11,7 @@ const Input = (props) => {
   let inputChange = (event) => {
     let value = event.target.value,
       id= event.target.id;
-    props.dispatch(inputChangeActionCreator(id,value));
+    props.dispatch(inputsChangeActionCreator(id,value));
   };
 
   return (

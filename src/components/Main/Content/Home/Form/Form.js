@@ -1,7 +1,7 @@
 import React from 'react';
 import FormItem from './FormItem/FormItem';
 import classes from './Form.module.css';
-import {submitFormActionCreator} from '../../../../../storage';
+import { submitFormActionCreator } from '../../../../../redux/home-form-reducer';
 
 const Form = (props) => {
   /**

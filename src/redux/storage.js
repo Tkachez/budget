@@ -1,5 +1,4 @@
-const changeInput = 'CHANGE-INPUT';
-const submitForm = 'SUBMIT-FORM';
+import homeFormReducer from './home-form-reducer';
 
 let storage = {
 
@@ -16,33 +15,17 @@ let storage = {
    * @param action
    */
   dispatch (action) {
-    if (action.type === changeInput) {
-      let form = this._content.home.form;
-      form.items.map(item => {
-        if (item.id === action.id) {
-          item.value = action.value;
-          return true;
-        }
-        return false;
-      });
-      this._renderEntireTree(this.getContent());
-    } else if (action.type === submitForm) {
-      let form = this._content.home.form,
-        submitData = [];
-      form.items.map(item => {
-          let validate = this._validateForm(item);
-          return validate ? submitData.push(item) : this._showValidationError(item);
-      });
-      this._clearForm();
-      this._renderEntireTree(this.getContent());
-    }
+
+    this._content.home.form = homeFormReducer(this._content.home.form, action);
+
+    this._renderEntireTree(this._content);
   },
 
   /**
    *
    * @return {storage._content|{home}}
    */
-  getContent () {
+  getState () {
     return this._content;
   },
 
@@ -52,39 +35,6 @@ let storage = {
    */
   _renderEntireTree () {
     console.log('render method');
-  },
-
-  /**
-   *
-   * @private
-   */
-  _clearForm () {
-    let items = this._content.home.form.items;
-    items.map(item => {
-      if(item.id === 'submit'){
-        return false;
-      }
-      return item.id === 'option' ? item.value = 'bills' : item.value = '';
-    });
-  },
-
-  /**
-   *
-   * @param item
-   * @return {boolean}
-   * @private
-   */
-  _validateForm(item) {
-     return item.value !== '' || item.id === 'comment';
-  },
-
-  /**
-   *
-   * @param item
-   * @private
-   */
-  _showValidationError (item) {
-    alert(`${item.id} can not be empty`);
   },
 
   /**
@@ -138,24 +88,6 @@ let storage = {
       }
     }
   }
-};
-
-export const inputChangeActionCreator = (id, value) => {
-  return (
-    {
-      id: id,
-      type: changeInput,
-      value: value
-    }
-  );
-};
-
-export const submitFormActionCreator = () => {
-  return (
-    {
-      type: submitForm
-    }
-  );
 };
 
 export default storage;
