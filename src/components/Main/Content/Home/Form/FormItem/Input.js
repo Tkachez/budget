@@ -4,6 +4,10 @@ import { inputChangeActionCreator } from '../../../../../../storage';
 
 const Input = (props) => {
 
+  /**
+   *
+   * @param event
+   */
   let inputChange = (event) => {
     let value = event.target.value,
       id= event.target.id;
