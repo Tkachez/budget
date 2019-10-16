@@ -11,7 +11,7 @@ let renderEntireTree = (props) => {
     document.getElementById('root')
   );
 };
-console.log(storage);
+
 renderEntireTree(storage.getState());
 storage.subscribe(()=>{
   let state = storage.getState();
