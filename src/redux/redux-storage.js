@@ -7,4 +7,5 @@ let reducers = combineReducers({
 
 let storage = createStore(reducers);
 
+window.state = storage;
 export default storage;
