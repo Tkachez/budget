@@ -1,7 +1,6 @@
 import React from 'react';
 import Option from './Option';
 import classes from './Select.module.css';
-import { inputsChangeActionCreator } from '../../../../../../redux/home-form-reducer';
 
 const Select = (props) => {
   /**
@@ -13,23 +12,13 @@ const Select = (props) => {
 
   /**
    *
-   * @param event
-   */
-  let handleChange = (event) => {
-    let value = event.target.value,
-      id = event.target.id;
-    return props.dispatch(inputsChangeActionCreator(id, value));
-  };
-
-  /**
-   *
    */
   return (
     <select className={classes.select}
-      id={props.id}
-      value={props.value}
-      name={props.name}
-      onChange={ handleChange }
+            onChange={props.onChange}
+            id={props.id}
+            value={props.value}
+            name={props.name}
     >{options}</select>
   );
 

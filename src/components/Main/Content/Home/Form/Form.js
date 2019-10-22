@@ -1,35 +1,23 @@
 import React from 'react';
-import FormItem from './FormItem/FormItem';
 import classes from './Form.module.css';
-import { submitFormActionCreator } from '../../../../../redux/home-form-reducer';
+import FormItem from './FormItem/FormItem'
 
 const Form = (props) => {
+
   /**
    *
-   * @type {Array}
    */
-  let formItems = props.form.items.map((item, index) =>
-    <FormItem
-      data={item}
-      key={index}
-      dispatch={props.dispatch}
-    />
-  );
-
-  let submitForm = (event) => {
-    event.preventDefault();
-    return props.dispatch(submitFormActionCreator());
-  };
+  let items = props.items.map((item,index) => <FormItem data={item} key={index} onChange={props.inputChange}/>);
 
   /**
    *
    * @return {*}
    */
   return (
-    <form className={classes.form} onSubmit={submitForm}>
+    <form className={classes.form} onSubmit={props.submitForm}>
       <fieldset className={classes.fieldset}>
         <legend className={classes.legend}>Add purchase</legend>
-        {formItems}
+        {items}
       </fieldset>
     </form>
   );

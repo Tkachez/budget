@@ -3,10 +3,10 @@ import content from './Content.module.css';
 import { Route } from 'react-router-dom';
 import { Account, Home, Settings } from './index';
 
-const Content = (props) => {
+const Content = () => {
   return (
     <article className={content.content}>
-      <Route path='/' exact render={ ()=> <Home home={props.content} dispatch={props.dispatch}/> }/>
+      <Route path='/' exact render={ ()=> <Home /> }/>
       <Route path='/account' exact render={ ()=> <Account/> }/>
       <Route path='/settings' exact render={ ()=> <Settings/> }/>
     </article>

@@ -3,11 +3,11 @@ import Sidebar from "./Sidebar/Sidebar";
 import Content from "./Content/Content";
 import classes from './Main.module.css';
 
-const Main = (props) => {
+const Main = () => {
     return(
         <main className={classes.main}>
             <Sidebar />
-            <Content content={props.main} dispatch={props.dispatch} />
+            <Content />
         </main>
     );
 };

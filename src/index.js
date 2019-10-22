@@ -1,21 +1,20 @@
 import './index.css';
-import storage from './redux/redux-storage';
+import store from './redux/redux-storage';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import App from './App';
 import React from 'react';
 
+ReactDOM.render(
+  <BrowserRouter>
+    <Provider store={store}>
+      <App/>
+    </Provider>
+  </BrowserRouter>, document.getElementById('root')
+);
 
-let renderEntireTree = (props) => {
-  ReactDOM.render(
-    <App storage={props} dispatch={storage.dispatch.bind(storage)}/>,
-    document.getElementById('root')
-  );
-};
 
-renderEntireTree(storage.getState());
-storage.subscribe(()=>{
-  let state = storage.getState();
-  renderEntireTree(state);
-});
+
 
 

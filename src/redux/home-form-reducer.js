@@ -49,11 +49,13 @@ let initialState = {
 
 const homeFormReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SUBMIT_FORM:
+    case SUBMIT_FORM: {
+      let stateCopy = { ...state };
+      let items = [...state.form.items];
       let submitData = [];
-      state.form.items.map(item => {
+      items.map(item => {
         submitData.push(item.value);
-        if(item.id === 'submit' || item.id === 'option') {
+        if (item.id === 'submit' || item.id === 'option') {
           return false;
         } else {
           return item.value = '';
@@ -61,19 +63,22 @@ const homeFormReducer = (state = initialState, action) => {
       });
       //todo: add fom submission logic;
       console.log(submitData);
-      return state;
-    case CHANGE_INPUT:
-      state.form.items.map(item => {
+      return stateCopy;
+    }
+    case CHANGE_INPUT: {
+      let stateCopy = { ...state };
+      let items = [...state.form.items];
+      items.map(item => {
         if (item.id === action.id) {
           return item.value = action.value;
         }
         return false;
       });
-      return state;
+      return stateCopy;
+    }
     default:
       return state;
   }
-
 };
 
 export const submitFormActionCreator = () => {
@@ -84,12 +89,12 @@ export const submitFormActionCreator = () => {
   );
 };
 
-export const inputsChangeActionCreator = (id, value) => {
+export const inputsChangeActionCreator = (event) => {
   return (
     {
-      id: id,
+      id: event.target.id,
       type: CHANGE_INPUT,
-      value: value
+      value: event.target.value
     }
   );
 };

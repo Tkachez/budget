@@ -1,11 +1,11 @@
-import {combineReducers,createStore} from 'redux';
+import { combineReducers,createStore } from 'redux';
 import homeFormReducer from './home-form-reducer';
 
 let reducers = combineReducers({
   homeForm: homeFormReducer
 });
 
-let storage = createStore(reducers);
+let store = createStore(reducers);
 
-window.state = storage;
-export default storage;
+export default store;
+

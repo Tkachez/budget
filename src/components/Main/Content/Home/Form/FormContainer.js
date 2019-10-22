@@ -1,21 +1,26 @@
-import React from 'react';
 import Form from './Form';
-import classes from './Form.module.css';
-import { submitFormActionCreator } from '../../../../../redux/home-form-reducer';
+import { inputsChangeActionCreator, submitFormActionCreator } from '../../../../../redux/home-form-reducer';
+import { connect } from 'react-redux';
 
-const FormContainer = (props) => {
 
-  let submitForm = (event) => {
-    event.preventDefault();
-    return props.dispatch(submitFormActionCreator());
+let mapStateToProps = (state) => {
+  return {
+    homeForm: state.homeForm,
+    items: state.homeForm.form.items
   };
-
-  /**
-   *
-   * @return {*}
-   */
-  return <Form/>
-  ;
 };
+let mapDispatchToProps = (dispatch) => {
+  return {
+    submitForm: (event) => {
+      event.preventDefault();
+      dispatch(submitFormActionCreator());
+    },
+    inputChange: (event) => {
+      dispatch(inputsChangeActionCreator(event));
+    }
+  };
+};
+
+const FormContainer = connect(mapStateToProps,mapDispatchToProps)(Form);
 
 export default FormContainer;

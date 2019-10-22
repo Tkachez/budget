@@ -9,8 +9,7 @@ const FormItem = (props) => {
       {props.data.origin === 'input' ? (
         <Input
           classes={classes.input}
-          dispatch={props.dispatch}
-          onChange={props.data.action}
+          onChange={props.onChange}
           value={props.data.value}
           type={props.data.type}
           id={props.data.id}
@@ -18,7 +17,7 @@ const FormItem = (props) => {
       ) : (
         <Select
           dispatch={props.dispatch}
-          onChange={props.data.action}
+          onChange={props.onChange}
           value={props.data.value}
           options={props.data.variants}
           id={props.data.id}
