@@ -12,6 +12,7 @@ const FormItem = (props) => {
           onChange={props.onChange}
           value={props.data.value}
           type={props.data.type}
+          min={props.data.min ? props.data.min : null }
           id={props.data.id}
         />
       ) : (

@@ -1,6 +1,10 @@
 const SUBMIT_FORM = 'SUBMIT-FORM';
 const CHANGE_INPUT = 'CHANGE-INPUT';
 
+/**
+ *
+ * @type {{form: {items: *[]}}}
+ */
 let initialState = {
   form: {
     items: [
@@ -23,6 +27,7 @@ let initialState = {
         id: 'cost',
         origin: 'input',
         type: 'number',
+        min: '0',
         name: 'purchase-value',
         label: 'Purchase value',
         value: ''
