@@ -1,0 +1,16 @@
+.transactions {
+    display: block;
+    padding: 2em;
+}
+
+.transactions__card {
+    display: flex;
+    width: 50%;
+    height: 5em;
+    margin: auto;
+}
+
+.transactions__card * {
+    margin: auto;
+}
+

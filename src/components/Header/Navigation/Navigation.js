@@ -9,6 +9,7 @@ const Navigation = () => {
         <NavLink className={nav.nav__link} to='/'>Home</NavLink>
         <NavLink className={nav.nav__link} to='/account'>Account</NavLink>
         <NavLink className={nav.nav__link} to='/settings'>Settings</NavLink>
+        <NavLink className={nav.nav__link} to='/reports'>Reports</NavLink>
       </div>
     </nav>
   );

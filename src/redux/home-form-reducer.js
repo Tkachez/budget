@@ -57,16 +57,15 @@ const homeFormReducer = (state = initialState, action) => {
     case SUBMIT_FORM: {
       let stateCopy = { ...state };
       let items = [...state.form.items];
-      let submitData = [];
+      let submitData = {};
       items.map(item => {
-        submitData.push(item.value);
+        if (item.id !== 'submit') submitData[item.id] = item.value;
         if (item.id === 'submit' || item.id === 'option') {
           return false;
         } else {
           return item.value = '';
         }
       });
-      //todo: add fom submission logic;
       console.log(submitData);
       return stateCopy;
     }
