@@ -1,16 +1,54 @@
-.transactions {
+.wrapper {
     display: block;
     padding: 2em;
 }
 
-.transactions__card {
-    display: flex;
-    width: 50%;
+.card {
+    border: 1px solid;
+    display: grid;
+    grid-template-areas: "icon type value show delete";
+    width: 60%;
     height: 5em;
-    margin: auto;
+    margin: 1rem auto 2rem auto;
+
 }
 
-.transactions__card * {
-    margin: auto;
+.expanded {
+    grid-template-areas: "icon type value" "comment hide delete";
+    height: 10em;
 }
+
+.icon {
+    grid-area: icon;
+    font-size: 2em;
+}
+
+.type {
+    grid-area: type;
+
+}
+
+.value {
+    grid-area: value;
+}
+
+.comment {
+    grid-area: comment;
+
+}
+
+.delete {
+    grid-area: delete;
+}
+
+.show {
+    grid-area: show;
+}
+
+.hide {
+    grid-area: hide;
+}
+
+
+
 
