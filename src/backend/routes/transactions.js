@@ -7,6 +7,12 @@ router.route('/').get((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/all/:option').get((req, res) => {
+  Transaction.find({option:req.params.option})
+    .then(count => res.json(count))
+    .catch(err => res.status(400).json('Error: ' + err))
+});
+
 router.route('/:id').delete((req, res) => {
   Transaction.findByIdAndDelete(req.params.id)
     .then(() => res.json('Transaction with id: ' + req.params.id + ' deleted!'))

@@ -3,8 +3,11 @@ import * as axios from 'axios';
 const SET_TRANSACTIONS = 'SET_TRANSACTIONS';
 const LOAD_MORE_TRANSACTIONS = 'LOAD_MORE_TRANSACTIONS';
 const UPDATE_BUTTON_VISIBILITY = 'UPDATE_BUTTON_VISIBILITY';
-const EDIT_TRANSACTION = 'EDIT_TRANSACTION';
+// const EDIT_TRANSACTION = 'EDIT_TRANSACTION';
 const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
+const SHOW_MORE = 'SHOW_MORE';
+const SHOW_LESS = 'SHOW_LESS';
+const SHOW_DELETE_ALERT = 'SHOW_DELETE_ALERT';
 const TRANSACTIONS_PER_PAGE = 3;
 
 let initialState = {
@@ -12,6 +15,14 @@ let initialState = {
   transactionsPerPage: TRANSACTIONS_PER_PAGE,
   page: 1,
   buttons: {
+    showMore: {
+      label: 'Show More',
+      loading: false
+    },
+    showLess: {
+      label: 'Show Less',
+      loading: false
+    },
     delete: {
       label: 'Delete',
       loading: false
@@ -67,6 +78,37 @@ const reportsReducer = (state = initialState, action) => {
         })
       }
     }
+    case SHOW_MORE: {
+      return {
+        ...state,
+        transactions: state.transactions.map(transaction => {
+          if(action.target.classList.contains(transaction._id)){
+            return  {...transaction, expanded: true }
+          }
+          return transaction
+        }
+
+        )
+      }
+    }
+    case SHOW_LESS: {
+      return {
+        ...state,
+        transactions: state.transactions.map(transaction => {
+          if(action.target.classList.contains(transaction._id)){
+            return {...transaction, expanded: false }
+          }
+          return transaction
+        }
+
+        )
+      }
+    }
+    case SHOW_DELETE_ALERT: {
+      return {
+
+      };
+    }
 
     default:{
       return state;
@@ -108,15 +150,42 @@ export const deleteTransactionActionCreator = (event) => {
   );
 };
 
-export const editTransactionActionCreator = (transactionId, fieldId, value) => {
+export const showMoreActionCreator = (event) => {
   return (
     {
-      type: EDIT_TRANSACTION,
-      fieldId,
-      value,
-      transactionId
+      type: SHOW_MORE,
+      target: event.target
     }
   );
 };
+
+export const showLessActionCreator = (event) => {
+  return (
+    {
+      type: SHOW_LESS,
+      target: event.target
+    }
+  );
+};
+
+export const showDeleteAlertActionCreator = (event) => {
+  return (
+    {
+      type: SHOW_DELETE_ALERT,
+      target: event.target
+    }
+  );
+};
+
+// export const editTransactionActionCreator = (transactionId, fieldId, value) => {
+//   return (
+//     {
+//       type: EDIT_TRANSACTION,
+//       fieldId,
+//       value,
+//       transactionId
+//     }
+//   );
+// };
 
 export default reportsReducer;

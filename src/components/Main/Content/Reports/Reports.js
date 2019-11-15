@@ -3,6 +3,7 @@ import * as axios from 'axios';
 import classes from './Reports.module.css';
 
 const Reports = (props) => {
+  console.log(props.reports.transactions);
   if (props.reports.transactions.length === 0) {
     axios.get('http://localhost:5000/transactions').then(res => {
         props.setTransactions(res.data);
@@ -12,7 +13,7 @@ const Reports = (props) => {
   /**
    *
    */
-  let transactionsPerPage = props.reports.transactions.map((transaction, index) => {
+  let transactions = props.reports.transactions.map((transaction, index) => {
     if (index < (
       props.reports.transactionsPerPage * props.reports.page
     )) {
@@ -21,7 +22,10 @@ const Reports = (props) => {
           <div className={classes.type}>Type: {transaction.option}</div>
           <div className={classes.value}>Value: {transaction.value}</div>
           <div className={classes.comment}>Comment: {transaction.comment}</div>
-          <button className={`${classes.delete} ${transaction._id}`} onClick={props.deleteTransaction}>{props.reports.buttons.delete.label}</button>
+          <div className={classes.buttons}>
+            <button className={`${classes.show} ${transaction._id}`} onClick={props.showMore}>{props.reports.buttons.showMore.label}</button>
+            <button className={`${classes.delete} ${transaction._id}`} onClick={props.deleteTransaction}>{props.reports.buttons.delete.label}</button>
+          </div>
         </div>
       );
     }
@@ -44,12 +48,13 @@ const Reports = (props) => {
     props.reports.transactionsPerPage === props.reports.transactions.length || !props.reports.buttons.loadMore.visible
   );
 
+
   /**
    *
    */
   return (
     <section className={classes.wrapper}>
-      {transactionsPerPage}
+      {transactions.length ? transactions : <div>There are no transactions yet</div>}
       {buttonVisibility &&
       <button onClick={onClick}>Load More</button>}
     </section>
