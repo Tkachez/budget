@@ -1,8 +1,14 @@
 import React from 'react';
+import * as axios from 'axios';
 import classes from './Reports.module.css';
 
 const Reports = (props) => {
-
+  if (props.reports.transactions.length === 0) {
+    axios.get('http://localhost:5000/transactions').then(res => {
+        props.setTransactions(res.data);
+      }
+    ).catch(err => console.log(err));
+  }
   /**
    *
    */
@@ -11,22 +17,12 @@ const Reports = (props) => {
       props.reports.transactionsPerPage * props.reports.page
     )) {
       return (
-        !transaction.expanded ?
-          <div key={transaction.id} className={classes.card}>
-            {transaction.icon}
-            <div className={classes.type}>Type: {transaction.type}</div>
-            <button className={`${classes.show} ${transaction.id}`} onClick={props.showMore}>{props.reports.buttons.showMore.label}</button>
-            <button className={`${classes.delete} ${transaction.id}`} onClick={props.deleteTransaction}>{props.reports.buttons.delete.label}</button>
-            <div className={classes.value}>Value: {transaction.value}</div>
-          </div> :
-          <div key={transaction.id} className={`${classes.card} ${classes.expanded}`}>
-            {transaction.icon}
-            <div className={classes.type}>Type: {transaction.type}</div>
-            <button className={`${classes.hide} ${transaction.id}`} onClick={props.showLess}>{props.reports.buttons.showLess.label}</button>
-            <button className={`${classes.delete} ${transaction.id}`} onClick={props.deleteTransaction}>{props.reports.buttons.delete.label}</button>
-            <div className={classes.value}>Value: {transaction.value}</div>
-            <div className={classes.comment}>Comment: {transaction.comment}</div>
-          </div>
+        <div key={transaction._id} className={`${classes.card}`}>
+          <div className={classes.type}>Type: {transaction.option}</div>
+          <div className={classes.value}>Value: {transaction.value}</div>
+          <div className={classes.comment}>Comment: {transaction.comment}</div>
+          <button className={`${classes.delete} ${transaction._id}`} onClick={props.deleteTransaction}>{props.reports.buttons.delete.label}</button>
+        </div>
       );
     }
     return false;

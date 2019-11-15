@@ -1,52 +1,65 @@
 .wrapper {
     display: block;
-    padding: 2em;
+    padding: 2rem;
 }
 
 .card {
+    display: flex;
     border: 1px solid;
-    display: grid;
-    grid-template-areas: "icon type value show delete";
+    background-color: #5F9EA0;
     width: 60%;
-    height: 5em;
+    transition: height 0.5s, width 0.5s, background-color 0.5s;
+    height: 5rem;
     margin: 1rem auto 2rem auto;
 
 }
 
-.expanded {
-    grid-template-areas: "icon type value" "comment hide delete";
-    height: 10em;
-}
-
-.icon {
-    grid-area: icon;
-    font-size: 2em;
+.card:hover {
+    background-color: white;
+    height: 8rem;
+    width: 65%;
 }
 
 .type {
-    grid-area: type;
-
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .value {
-    grid-area: value;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .comment {
-    grid-area: comment;
-
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .delete {
-    grid-area: delete;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
 }
 
 .show {
-    grid-area: show;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
 }
 
 .hide {
-    grid-area: hide;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
 }
 
 

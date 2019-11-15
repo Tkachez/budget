@@ -1,35 +1,17 @@
-import { FaAppleAlt,FaCapsules,FaGlassMartini,FaWallet } from "react-icons/fa";
-import React from 'react';
-import classes from '../components/Main/Content/Reports/Reports.module.css';
+import * as axios from 'axios';
 
+const SET_TRANSACTIONS = 'SET_TRANSACTIONS';
 const LOAD_MORE_TRANSACTIONS = 'LOAD_MORE_TRANSACTIONS';
 const UPDATE_BUTTON_VISIBILITY = 'UPDATE_BUTTON_VISIBILITY';
 const EDIT_TRANSACTION = 'EDIT_TRANSACTION';
 const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
-const SHOW_MORE = 'SHOW_MORE';
-const SHOW_LESS = 'SHOW_LESS';
 const TRANSACTIONS_PER_PAGE = 3;
 
 let initialState = {
-  transactions: [
-    {id: 1, expanded:false, icon:<FaCapsules className={classes.icon}/>, buttons:{}, type:'health', value: 20, comment:'Pharmacy, Pool', date:''},
-    {id: 2, expanded:false, icon:<FaAppleAlt className={classes.icon}/>, type:'food', value: 10, comment:'Apples, Juice', date:''},
-    {id: 3, expanded:false, icon:<FaCapsules className={classes.icon}/>, type:'health', value: 5, comment:'Pharmacy', date:''},
-    {id: 4, expanded:false, icon:<FaGlassMartini className={classes.icon}/>, type:'entertainment', value: 25, comment:'', date:''},
-    {id: 5, expanded:false, icon:<FaAppleAlt className={classes.icon}/>, type:'food', value: 10, comment:'Nuts', date:''},
-    {id: 6, expanded:false, icon:<FaWallet className={classes.icon}/>, type:'bills', value: 60, comment:'Flat', date:''}
-  ],
+  transactions: [],
   transactionsPerPage: TRANSACTIONS_PER_PAGE,
   page: 1,
   buttons: {
-    showMore: {
-      label: 'Show More',
-      loading: false
-    },
-    showLess: {
-      label: 'Show Less',
-      loading: false
-    },
     delete: {
       label: 'Delete',
       loading: false
@@ -44,6 +26,12 @@ let initialState = {
 
 const reportsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_TRANSACTIONS: {
+      return {
+        ...state,
+        transactions:  [...action.transactions]
+      };
+    }
     case LOAD_MORE_TRANSACTIONS: {
         return {
           ...state,
@@ -53,52 +41,30 @@ const reportsReducer = (state = initialState, action) => {
     case UPDATE_BUTTON_VISIBILITY: {
       let totalPages = Math.ceil(state.transactions.length / state.transactionsPerPage),
         visibility;
-      totalPages >= state.page ? visibility = false : visibility = true;
+      totalPages === state.page ? visibility = false : visibility = true;
+      console.log(visibility);
       return {
         ...state,
-        button: {
-          visible: visibility
+        buttons: {
+          ...state.buttons,
+          loadMore: {
+            ...state.loadMore,
+            visible: visibility
+          }
         }
+
       };
-    }
-    case EDIT_TRANSACTION: {
-      return {
-        ...state,
-        transactions: state.transactions.map(transaction =>
-           transaction.id === action.transactionId ? transaction[action.fieldId] = action.value : transaction
-        )
-      }
     }
     case DELETE_TRANSACTION: {
       return {
         ...state,
-        transactions: state.transactions.filter(transaction => !action.target.classList.contains(transaction.id))
-      }
-    }
-    case SHOW_MORE: {
-      return {
-        ...state,
-        transactions: state.transactions.map(transaction => {
-          if(action.target.classList.contains(transaction.id)){
-            return  {...transaction, expanded: true }
+        transactions: state.transactions.filter(transaction => {
+          if(action.target.classList.contains(transaction._id)){
+            axios.delete('http://localhost:5000/transactions/' + transaction._id)
+            .catch(err => console.log(err));
           }
-          return transaction
-        }
-
-        )
-      }
-    }
-    case SHOW_LESS: {
-      return {
-        ...state,
-        transactions: state.transactions.map(transaction => {
-          if(action.target.classList.contains(transaction.id)){
-            return {...transaction, expanded: false }
-          }
-          return transaction
-        }
-
-        )
+          return !action.target.classList.contains(transaction._id)
+        })
       }
     }
 
@@ -106,6 +72,15 @@ const reportsReducer = (state = initialState, action) => {
       return state;
     }
   }
+};
+
+export const setTransactionsActionCreator = (transactions) => {
+  return (
+    {
+      type: SET_TRANSACTIONS,
+      transactions
+    }
+  );
 };
 
 export const loadMoreTransactionsActionCreator = () => {
@@ -128,24 +103,6 @@ export const deleteTransactionActionCreator = (event) => {
   return (
     {
       type: DELETE_TRANSACTION,
-      target: event.target
-    }
-  );
-};
-
-export const showMoreActionCreator = (event) => {
-  return (
-    {
-      type: SHOW_MORE,
-      target: event.target
-    }
-  );
-};
-
-export const showLessActionCreator = (event) => {
-  return (
-    {
-      type: SHOW_LESS,
       target: event.target
     }
   );

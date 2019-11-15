@@ -3,10 +3,8 @@ import Reports from './Reports';
 import {
   deleteTransactionActionCreator,
   loadMoreTransactionsActionCreator,
-  showMoreActionCreator,
-  showLessActionCreator,
-  editTransactionActionCreator,
   updateButtonVisibilityActionCreator,
+  setTransactionsActionCreator
 } from '../../../../redux/report-reducer';
 
 let mapStateToProps = (state) => {
@@ -17,24 +15,18 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
+    setTransactions: (transactions) => {
+      dispatch(setTransactionsActionCreator(transactions))
+    },
     loadMoreTransactions: () => {
       dispatch(loadMoreTransactionsActionCreator());
     },
     updateButtonVisibility: () => {
       dispatch(updateButtonVisibilityActionCreator())
     },
-    editTransaction: (transactionId) => {
-      dispatch(editTransactionActionCreator(transactionId));
-    },
     deleteTransaction: (transactionId) => {
       dispatch(deleteTransactionActionCreator(transactionId));
     },
-    showMore: (event) => {
-      dispatch(showMoreActionCreator(event));
-    },
-    showLess: (event => {
-      dispatch(showLessActionCreator(event));
-    })
   };
 };
 
