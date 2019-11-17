@@ -1,8 +1,13 @@
 import { connect } from 'react-redux';
 import Statistics from './Statistics';
 import {
-  showStatisticsActionCreator
-} from '../../../../redux/statistics-reducer';
+  setAlcoholActionCreator,
+  setBillsActionCreator,
+  setEntertainmentActionCreator,
+  setFoodActionCreator,
+  setHealthActionCreator
+} from "../../../../redux/statistics-reducer";
+
 
 let mapStateToProps = (state) => {
   return {
@@ -12,8 +17,20 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    showStatistics: (data) => {
-      dispatch(showStatisticsActionCreator(data))
+    setHealth: (health) => {
+      dispatch(setHealthActionCreator(health))
+    },
+    setFood: (food) => {
+      dispatch(setFoodActionCreator(food))
+    },
+    setBills: (bills) => {
+      dispatch(setBillsActionCreator(bills))
+    },
+    setEntertainment: (entertainment) => {
+      dispatch(setEntertainmentActionCreator(entertainment))
+    },
+    setAlcohol: (alcohol) => {
+      dispatch(setAlcoholActionCreator(alcohol))
     },
   };
 };

@@ -1,11 +1,25 @@
 import React from 'react';
-// import * as axios from 'axios';
+import * as axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 
 export default class Statistics extends React.Component{
 
   componentDidMount(){
-    this.props.showStatistics();
+    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.health.label)
+        .then(res => this.props.setHealth(res.data))
+        .catch(err => console.log('Error: ' + err));
+    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.food.label)
+        .then(res => this.props.setFood(res.data))
+        .catch(err => console.log('Error: ' + err));
+    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.bills.label)
+        .then(res => this.props.setBills(res.data))
+        .catch(err => console.log('Error: ' + err));
+    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.entertainment.label)
+        .then(res => this.props.setEntertainment(res.data))
+        .catch(err => console.log('Error: ' + err));
+    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.alcohol.label)
+        .then(res => this.props.setAlcohol(res.data))
+        .catch(err => console.log('Error: ' + err));
   }
 
   render(){
@@ -41,10 +55,10 @@ export default class Statistics extends React.Component{
                   ],
                   data: [
                     props.health.value,
-                    props.health.food,
-                    props.health.bills,
-                    props.health.entertainment,
-                    props.health.alcohol
+                    props.food.value,
+                    props.bills.value,
+                    props.entertainment.value,
+                    props.alcohol.value
                   ]
                 }
               ]

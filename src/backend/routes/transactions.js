@@ -20,7 +20,7 @@ router.route('/count').get((req, res) => {
 });
 
 router.route('/all/:option').get((req, res) => {
-  Transaction.find({option:req.params.option})
+  Transaction.countDocuments({option:req.params.option})
     .then(count => res.json(count))
     .catch(err => res.status(400).json('Error: ' + err))
 });
