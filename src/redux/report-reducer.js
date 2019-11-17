@@ -1,8 +1,8 @@
 import * as axios from 'axios';
 
-const SET_TRANSACTIONS = 'SET_TRANSACTIONS';
-const LOAD_MORE_TRANSACTIONS = 'LOAD_MORE_TRANSACTIONS';
-const UPDATE_BUTTON_VISIBILITY = 'UPDATE_BUTTON_VISIBILITY';
+const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
+const SET_PAGE = 'SET_PAGE';
+const GET_TOTAL_TRANSACTIONS= 'GET_TOTAL_PAGES';
 // const EDIT_TRANSACTION = 'EDIT_TRANSACTION';
 const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
 const SHOW_MORE = 'SHOW_MORE';
@@ -12,7 +12,8 @@ const TRANSACTIONS_PER_PAGE = 3;
 
 let initialState = {
   transactions: [],
-  transactionsPerPage: TRANSACTIONS_PER_PAGE,
+  totalTransactions: 0,
+  pageLimit: TRANSACTIONS_PER_PAGE,
   page: 1,
   buttons: {
     showMore: {
@@ -37,34 +38,23 @@ let initialState = {
 
 const reportsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_TRANSACTIONS: {
+    case GET_TRANSACTIONS: {
       return {
         ...state,
         transactions:  [...action.transactions]
       };
     }
-    case LOAD_MORE_TRANSACTIONS: {
-        return {
-          ...state,
-          ...state.page ++
-        };
-    }
-    case UPDATE_BUTTON_VISIBILITY: {
-      let totalPages = Math.ceil(state.transactions.length / state.transactionsPerPage),
-        visibility;
-      totalPages === state.page ? visibility = false : visibility = true;
-      console.log(visibility);
+    case GET_TOTAL_TRANSACTIONS: {
       return {
         ...state,
-        buttons: {
-          ...state.buttons,
-          loadMore: {
-            ...state.loadMore,
-            visible: visibility
-          }
-        }
-
-      };
+        totalTransactions: action.totalTransactions
+      }
+    }
+    case SET_PAGE: {
+      return {
+        ...state,
+        page: action.page
+      }
     }
     case DELETE_TRANSACTION: {
       return {
@@ -116,28 +106,30 @@ const reportsReducer = (state = initialState, action) => {
   }
 };
 
-export const setTransactionsActionCreator = (transactions) => {
+export const getTransactionsActionCreator = (transactions) => {
   return (
     {
-      type: SET_TRANSACTIONS,
+      type: GET_TRANSACTIONS,
       transactions
     }
   );
 };
 
-export const loadMoreTransactionsActionCreator = () => {
+export const getTotalTransactionsActionCreator = (totalTransactions) => {
   return (
-    {
-      type: LOAD_MORE_TRANSACTIONS,
-    }
+      {
+        type: GET_TOTAL_TRANSACTIONS,
+        totalTransactions
+      }
   );
 };
 
-export const updateButtonVisibilityActionCreator = () => {
+export const setPageActionCreator = (event) => {
   return (
-    {
-      type: UPDATE_BUTTON_VISIBILITY,
-    }
+      {
+        type: SET_PAGE,
+        page: parseInt(event.target.innerHTML)
+      }
   );
 };
 
@@ -177,15 +169,5 @@ export const showDeleteAlertActionCreator = (event) => {
   );
 };
 
-// export const editTransactionActionCreator = (transactionId, fieldId, value) => {
-//   return (
-//     {
-//       type: EDIT_TRANSACTION,
-//       fieldId,
-//       value,
-//       transactionId
-//     }
-//   );
-// };
 
 export default reportsReducer;

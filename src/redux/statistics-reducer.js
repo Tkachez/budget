@@ -1,8 +1,5 @@
-const SHOW_HEALTH = 'SHOW_HEALTH';
-const SHOW_FOOD = 'SHOW_FOOD';
-const SHOW_ENTERTAINMENT = 'SHOW_ENTERTAINMENT';
-const SHOW_BILLS = 'SHOW_BILLS';
-const SHOW_ALCOHOL = 'SHOW_ALCOHOL';
+import * as axios from 'axios';
+const SHOW_STATS = 'SHOW_STATS';
 
 let initialState  = {
   health: {
@@ -29,35 +26,13 @@ let initialState  = {
 
 const statisticsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SHOW_HEALTH: {
-      return {
-        ...state,
-        health: action.data
-      };
-    }
-    case SHOW_FOOD: {
-      return {
-        ...state,
-        food: action.data
-      };
-    }
-    case SHOW_ENTERTAINMENT: {
-      return {
-        ...state,
-        entertainment: action.data
-      };
-    }
-    case SHOW_BILLS: {
-      return {
-        ...state,
-        bills: action.data
-      };
-    }
-    case SHOW_ALCOHOL: {
-      return {
-        ...state,
-        alcohol: action.data
-      };
+    case SHOW_STATS: {
+      axios.get('http://localhost:5000/transactions/all/' + state.health.label)
+          .then(res => {
+            console.log(res.data)
+          })
+          .catch(err => console.log('Error: ' + err));
+      return state;
     }
     default: {
       return state;
@@ -65,49 +40,13 @@ const statisticsReducer = (state = initialState, action) => {
   }
 };
 
-export const showHealthCountActionCreator = (data) => {
+export const showStatisticsActionCreator = () => {
   return (
-    {
-      type: SHOW_HEALTH,
-      data: data
-    }
+      {
+        type: SHOW_STATS
+      }
   );
 };
 
-export const showFoodCountActionCreator = (data) => {
-  return (
-    {
-      type: SHOW_FOOD,
-      data: data
-    }
-  );
-};
-
-export const showEntertainmentCountActionCreator = (data) => {
-  return (
-    {
-      type: SHOW_ENTERTAINMENT,
-      data: data
-    }
-  );
-};
-
-export const showBillsCountActionCreator = (data) => {
-  return (
-    {
-      type: SHOW_BILLS,
-      data: data
-    }
-  );
-};
-
-export const showAlcoholCountActionCreator = (data) => {
-  return (
-    {
-      type: SHOW_ALCOHOL,
-      data: data
-    }
-  );
-};
 
 export default statisticsReducer;

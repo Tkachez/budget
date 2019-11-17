@@ -7,6 +7,18 @@ router.route('/').get((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/all/:limit/:skip').get((req, res) => {
+  Transaction.find().limit(parseInt(req.params.limit)).skip(parseInt(req.params.skip))
+  .then(transactions => res.json(transactions))
+  .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/count').get((req, res) => {
+  Transaction.countDocuments()
+      .then(count => res.json(count))
+      .catch(err => res.status(400).json('Error: ' + err))
+});
+
 router.route('/all/:option').get((req, res) => {
   Transaction.find({option:req.params.option})
     .then(count => res.json(count))

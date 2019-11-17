@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema({
-  option: { type: String, required: true },
-  value: { type: String, required: true },
-  comment: { type: String, required: false },
+    option: {type: String, required: true},
+    value: {type: String, required: true},
+    comment: {type: String, required: false},
 }, {
-  timestamps: true
+    timestamps: true
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

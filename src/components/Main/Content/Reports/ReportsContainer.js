@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import Reports from './Reports';
 import {
   deleteTransactionActionCreator,
-  loadMoreTransactionsActionCreator,
   showMoreActionCreator,
   showLessActionCreator,
-  updateButtonVisibilityActionCreator,
-  setTransactionsActionCreator,
-  showDeleteAlertActionCreator
+  getTransactionsActionCreator,
+  showDeleteAlertActionCreator,
+  getTotalTransactionsActionCreator,
+  setPageActionCreator
 } from '../../../../redux/report-reducer';
 
 let mapStateToProps = (state) => {
@@ -18,14 +18,14 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    setTransactions: (transactions) => {
-      dispatch(setTransactionsActionCreator(transactions))
+    getTransactions: (transactions) => {
+      dispatch(getTransactionsActionCreator(transactions))
     },
-    loadMoreTransactions: () => {
-      dispatch(loadMoreTransactionsActionCreator());
+    getTotalTransactions: (totalTransactions) => {
+      dispatch(getTotalTransactionsActionCreator(totalTransactions))
     },
-    updateButtonVisibility: () => {
-      dispatch(updateButtonVisibilityActionCreator())
+    setPage: (page) => {
+      dispatch(setPageActionCreator(page))
     },
     deleteTransaction: (transactionId) => {
       dispatch(deleteTransactionActionCreator(transactionId));

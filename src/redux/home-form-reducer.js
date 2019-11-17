@@ -68,12 +68,11 @@ const homeFormReducer = (state = initialState, action) => {
           return item.value = '';
         }
       });
-      console.log(submitData);
       axios.post('http://localhost:5000/transactions/add/', {
         "option": submitData.option,
         "value": submitData.cost,
         "comment": submitData.comment
-      }).then(res => console.log(res.status)).catch(err => console.log(err));
+      }).catch(err => console.log(err));
       return stateCopy;
     }
     case CHANGE_INPUT: {
