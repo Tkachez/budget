@@ -5,26 +5,26 @@ import { Pie } from 'react-chartjs-2';
 export default class Statistics extends React.Component{
 
   componentDidMount(){
-    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.health.label)
+    let url = 'http://localhost:5000/transactions/all/';
+    axios.get(url + this.props.statistics.health.label)
         .then(res => this.props.setHealth(res.data))
         .catch(err => console.log('Error: ' + err));
-    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.food.label)
+    axios.get(url + this.props.statistics.food.label)
         .then(res => this.props.setFood(res.data))
         .catch(err => console.log('Error: ' + err));
-    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.bills.label)
+    axios.get(url + this.props.statistics.bills.label)
         .then(res => this.props.setBills(res.data))
         .catch(err => console.log('Error: ' + err));
-    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.entertainment.label)
+    axios.get(url + this.props.statistics.entertainment.label)
         .then(res => this.props.setEntertainment(res.data))
         .catch(err => console.log('Error: ' + err));
-    axios.get('http://localhost:5000/transactions/all/' + this.props.statistics.alcohol.label)
+    axios.get(url + this.props.statistics.alcohol.label)
         .then(res => this.props.setAlcohol(res.data))
         .catch(err => console.log('Error: ' + err));
   }
 
   render(){
     const props = this.props.statistics;
-    console.log(props);
     return (
         <div>
           <Pie data={

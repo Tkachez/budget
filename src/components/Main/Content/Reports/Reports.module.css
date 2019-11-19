@@ -74,6 +74,10 @@
     width: 25%;
 }
 
+.selected {
+    background-color: #c9302c;
+}
+
 
 
 

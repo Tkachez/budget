@@ -11,7 +11,8 @@ import {
 
 let mapStateToProps = (state) => {
   return {
-    statistics: state.statistics
+    statistics: state.statistics,
+    transactions: state.reports
   };
 };
 
