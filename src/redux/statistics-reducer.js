@@ -1,3 +1,4 @@
+const ON_PAGE_LOADED = 'ON_PAGE_LOADED';
 const SET_HEALTH = 'SET_HEALTH';
 const SET_FOOD = 'SET_FOOD';
 const SET_BILLS = 'SET_BILLS';
@@ -5,6 +6,7 @@ const SET_ENTERTAINMENT = 'SET_ENTERTAINMENT';
 const SET_ALCOHOL = 'SET_ALCOHOL';
 
 let initialState  = {
+  isLoading: true,
   health: {
     label: 'health',
     value: 0
@@ -29,6 +31,12 @@ let initialState  = {
 
 const statisticsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ON_PAGE_LOADED: {
+      return {
+        ...state,
+        isLoading: false
+      }
+    }
     case SET_HEALTH: {
       return {
         ...state,
@@ -80,6 +88,14 @@ const statisticsReducer = (state = initialState, action) => {
   }
 };
 
+export const onPageLoadedActionCreator = () => {
+  return (
+    {
+      type: ON_PAGE_LOADED
+    }
+  );
+};
+
 export const setHealthActionCreator = (health) => {
   return (
       {
@@ -124,7 +140,6 @@ export const setAlcoholActionCreator = (alcohol) => {
       }
   );
 };
-
 
 
 

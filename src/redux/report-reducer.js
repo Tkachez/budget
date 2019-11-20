@@ -1,9 +1,9 @@
-import * as axios from 'axios';
+import axios from 'axios';
 
+const SET_PAGE_LOADING = 'SET_PAGE_LOADING';
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 const SET_PAGE = 'SET_PAGE';
 const GET_TOTAL_TRANSACTIONS= 'GET_TOTAL_PAGES';
-// const EDIT_TRANSACTION = 'EDIT_TRANSACTION';
 const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
 const SHOW_MORE = 'SHOW_MORE';
 const SHOW_LESS = 'SHOW_LESS';
@@ -11,6 +11,7 @@ const SHOW_DELETE_ALERT = 'SHOW_DELETE_ALERT';
 const TRANSACTIONS_PER_PAGE = 3;
 
 let initialState = {
+  isLoading: true,
   transactions: [],
   totalTransactions: 0,
   pageLimit: TRANSACTIONS_PER_PAGE,
@@ -38,10 +39,17 @@ let initialState = {
 
 const reportsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_TRANSACTIONS: {
+    case SET_PAGE_LOADING: {
       return {
         ...state,
-        transactions:  [...action.transactions]
+        isLoading: action.loading
+      }
+    }
+    case GET_TRANSACTIONS: {
+      debugger;
+      return {
+        ...state,
+        transactions: action.transactions
       };
     }
     case GET_TOTAL_TRANSACTIONS: {
@@ -106,6 +114,16 @@ const reportsReducer = (state = initialState, action) => {
   }
 };
 
+
+export const setPageLoadingActionCreator = (loading) => {
+  return (
+    {
+      type: SET_PAGE_LOADING,
+      loading
+    }
+  );
+};
+
 export const getTransactionsActionCreator = (transactions) => {
   return (
     {
@@ -155,15 +173,6 @@ export const showLessActionCreator = (event) => {
   return (
     {
       type: SHOW_LESS,
-      target: event.target
-    }
-  );
-};
-
-export const showDeleteAlertActionCreator = (event) => {
-  return (
-    {
-      type: SHOW_DELETE_ALERT,
       target: event.target
     }
   );

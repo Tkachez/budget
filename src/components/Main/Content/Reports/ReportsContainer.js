@@ -1,80 +1,102 @@
 import { connect } from 'react-redux';
 import Reports from './Reports';
+import Loader from 'react-loader-spinner';
 import {
   deleteTransactionActionCreator,
-  showMoreActionCreator,
-  showLessActionCreator,
-  getTransactionsActionCreator,
-  showDeleteAlertActionCreator,
   getTotalTransactionsActionCreator,
-  setPageActionCreator
+  getTransactionsActionCreator,
+  setPageActionCreator, setPageLoadingActionCreator,
+  showLessActionCreator,
+  showMoreActionCreator
 } from '../../../../redux/report-reducer';
 import React from 'react';
-import * as axios from 'axios';
+import axios from 'axios';
+
+
 
 class ReportsContainer extends React.Component {
-  /**
-   *
-   * @param prevProps
-   */
-  componentDidUpdate(prevProps) {
-    if (prevProps.page !== this.props.page) {
-      axios.get('http://localhost:5000/transactions/all/' +
-        this.props.pageLimit + '/' + this.props.pageLimit * (this.props.page - 1))
-      .then(res => {
-        this.props.getTransactions(res.data);
-      }).catch(err => console.log(err));
-    }
-  }
+  // /**
+  //  *
+  //  * @param prevProps
+  //  */
+  // componentDidUpdate (prevProps) {
+  //   if (prevProps.page !== this.props.reports.page) {
+  //     this.props.setPageLoading(true);
+  //     axios.get('http://localhost:5000/transactions/all/' +
+  //       this.props.reports.pageLimit + '/' + this.props.reports.pageLimit * (
+  //         this.props.reports.page - 1
+  //       )).then(res => {
+  //       this.props.getTransactions(res.data);
+  //       this.props.setPageLoading(false);
+  //     }).catch(err => console.log(err));
+  //   }
+  // }
 
   /**
    *
    */
-  componentDidMount() {
+  componentDidMount () {
+    this.props.setPageLoading(true);
     axios.get('http://localhost:5000/transactions/all/' +
-      this.props.pageLimit + '/' + this.props.pageLimit * (this.props.page - 1))
-    .then(res => {
+      this.props.pageLimit + '/' + this.props.pageLimit * (
+        this.props.page - 1
+      )).then(res => {
+        console.log(res.data);
       this.props.getTransactions(res.data);
     }).catch(err => console.log(err));
     axios.get('http://localhost:5000/transactions/count').then(res => {
-      this.props.getTotalTransactions(res.data)
+      this.props.getTotalTransactions(res.data);
+      this.props.setPageLoading(false);
     }).catch(err => console.log(err));
   }
 
   render () {
-    return <Reports
-      setPage={this.props.setPage}
-      deleteTransaction={this.props.deleteTransaction}
-      totalTransactions={this.props.totalTransactions}
-      transactions={this.props.transactions}
-      pageLimit={this.props.pageLimit}
-      page={this.props.page}
-      buttons={this.props.buttons}
-    />;
+    console.log(this.props.reports.transactions);
+    const loaderStyles = {
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    };
+
+    return (
+      !this.props.reports.isLoading ? <Reports
+        setPage={this.props.setPage}
+        deleteTransaction={this.props.deleteTransaction}
+        totalTransactions={this.props.reports.totalTransactions}
+        transactions={this.props.reports.transactions}
+        pageLimit={this.props.reports.pageLimit}
+        page={this.props.reports.page}
+        buttons={this.props.reports.buttons}
+      /> : <Loader
+        type="Oval"
+        color="#5F9EA0"
+        style={loaderStyles}
+      />
+    );
   }
 }
 
 let mapStateToProps = (state) => {
   return {
     reports: state.reports,
-    totalTransactions: state.reports.totalTransactions,
-    transactions: state.reports.transactions,
-    page: state.reports.page,
-    pageLimit: state.reports.pageLimit,
-    buttons: state.reports.buttons
   };
 };
 
 let mapDispatchToProps = (dispatch) => {
   return {
+    setPageLoading: (loading) => {
+      dispatch(setPageLoadingActionCreator(loading));
+    },
     getTransactions: (transactions) => {
-      dispatch(getTransactionsActionCreator(transactions))
+      dispatch(getTransactionsActionCreator(transactions));
     },
     getTotalTransactions: (totalTransactions) => {
-      dispatch(getTotalTransactionsActionCreator(totalTransactions))
+      dispatch(getTotalTransactionsActionCreator(totalTransactions));
     },
     setPage: (page) => {
-      dispatch(setPageActionCreator(page))
+      dispatch(setPageActionCreator(page));
     },
     deleteTransaction: (transactionId) => {
       dispatch(deleteTransactionActionCreator(transactionId));
@@ -85,9 +107,6 @@ let mapDispatchToProps = (dispatch) => {
     showLess: (event) => {
       dispatch(showLessActionCreator(event));
     },
-    showDeleteAlert: (event) => {
-      dispatch(showDeleteAlertActionCreator(event));
-    }
   };
 };
 
