@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classes from './Header.module.css';
-import { Logo, Navigation, Search } from './index';
+import { Logo, Navigation } from './index';
 
 class Header extends Component {
   constructor (props) {
@@ -15,7 +15,6 @@ class Header extends Component {
       <header className={classes.header}>
         <Logo/>
         <Navigation/>
-        <Search/>
       </header>
     );
   };

@@ -29,11 +29,6 @@ let initialState = {
       label: 'Delete',
       loading: false
     },
-    loadMore: {
-      label: 'Load More',
-      loading: false,
-      visible: true
-    }
   }
 };
 
@@ -46,7 +41,6 @@ const reportsReducer = (state = initialState, action) => {
       }
     }
     case GET_TRANSACTIONS: {
-      debugger;
       return {
         ...state,
         transactions: action.transactions
@@ -142,11 +136,11 @@ export const getTotalTransactionsActionCreator = (totalTransactions) => {
   );
 };
 
-export const setPageActionCreator = (event) => {
+export const setPageActionCreator = (page) => {
   return (
       {
         type: SET_PAGE,
-        page: parseInt(event.target.innerHTML)
+        page
       }
   );
 };

@@ -26,7 +26,7 @@ const Reports = (props) => {
     <section className={classes.wrapper}>
       <div>
         {pages.map(
-          page => <button className={props.page === page ? classes.selected : ''} onClick={props.setPage} key={page}>{page}</button>)}
+          page => <button className={props.page === page ? classes.selected : ''} onClick={() => props.updatePage(page)} key={page}>{page}</button>)}
       </div>
       {props.transactions.length ? props.transactions.map((transaction, index) => {
           if (index < (

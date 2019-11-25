@@ -12,36 +12,14 @@ import {
 import React from 'react';
 import axios from 'axios';
 
-
-
 class ReportsContainer extends React.Component {
-  // /**
-  //  *
-  //  * @param prevProps
-  //  */
-  // componentDidUpdate (prevProps) {
-  //   if (prevProps.page !== this.props.reports.page) {
-  //     this.props.setPageLoading(true);
-  //     axios.get('http://localhost:5000/transactions/all/' +
-  //       this.props.reports.pageLimit + '/' + this.props.reports.pageLimit * (
-  //         this.props.reports.page - 1
-  //       )).then(res => {
-  //       this.props.getTransactions(res.data);
-  //       this.props.setPageLoading(false);
-  //     }).catch(err => console.log(err));
-  //   }
-  // }
 
   /**
    *
    */
   componentDidMount () {
-    this.props.setPageLoading(true);
-    axios.get('http://localhost:5000/transactions/all/' +
-      this.props.pageLimit + '/' + this.props.pageLimit * (
-        this.props.page - 1
-      )).then(res => {
-        console.log(res.data);
+    axios.get(`http://localhost:5000/transactions/all/${this.props.reports.pageLimit}/${this.props.reports.pageLimit * (
+      this.props.reports.page - 1)}`).then(res => {
       this.props.getTransactions(res.data);
     }).catch(err => console.log(err));
     axios.get('http://localhost:5000/transactions/count').then(res => {
@@ -50,8 +28,24 @@ class ReportsContainer extends React.Component {
     }).catch(err => console.log(err));
   }
 
+  /**
+   *
+   * @param page
+   */
+  updatePage (page) {
+    this.setPageLoading(true);
+    axios.get(`http://localhost:5000/transactions/all/${this.pageLimit}/${this.pageLimit * (page - 1)}`).then(res => {
+      this.getTransactions(res.data);
+      this.setPageLoading(false);
+    }).catch(err => console.log(err));
+    this.setPage(page);
+  }
+
+  /**
+   *
+   * @return {*}
+   */
   render () {
-    console.log(this.props.reports.transactions);
     const loaderStyles = {
       width: '100%',
       height: '100%',
@@ -62,7 +56,10 @@ class ReportsContainer extends React.Component {
 
     return (
       !this.props.reports.isLoading ? <Reports
-        setPage={this.props.setPage}
+        setPage = {this.props.setPage}
+        setPageLoading = {this.props.setPageLoading}
+        updatePage = {this.updatePage}
+        getTransactions = {this.props.getTransactions}
         deleteTransaction={this.props.deleteTransaction}
         totalTransactions={this.props.reports.totalTransactions}
         transactions={this.props.reports.transactions}
