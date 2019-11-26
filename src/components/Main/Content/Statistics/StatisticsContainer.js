@@ -37,7 +37,6 @@ class StatisticsContainer extends React.Component {
   }
 
   render(){
-    console.log(this.props.statistics);
     const loaderStyles = {
       width: '100%',
       height: '100%',

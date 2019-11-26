@@ -2,6 +2,21 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const transactionSchema = new Schema({
+  option: {
+    type: String,
+    required: true
+  },
+  value: {
+    type: Number,
+    required: true,
+    minValue: 0.01
+  },
+  comment: String
+}, {
+  timestamps: true
+});
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -10,6 +25,14 @@ const userSchema = new Schema({
     trim: true,
     minLength: 3,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  },
+  profileImage: File,
+  transactions: [transactionSchema]
 }, {
   timestamps: true,
 });

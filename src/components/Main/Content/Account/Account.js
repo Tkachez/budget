@@ -1,12 +1,30 @@
 import React from 'react';
+import classes from './Account.module.css';
+import { FaUserCircle } from 'react-icons/fa';
 
-const Account = () => {
+const Account = (props) => {
+
+  console.log(props);
+  let style = {
+    verticalAlign: 'sub'
+  };
+
   return (
-    <div>
-      <div>Avatar</div>
-      <div>Info</div>
-      <div>Description</div>
-    </div>
+    <section className={classes.main}>
+      <div className={classes.profileImage}>{props.profileImage ? props.profileImage : <FaUserCircle style={style}/>}</div>
+      <form onSubmit={ props.createUser }>
+        <fieldset className={classes.fieldSet}>
+          <legend>Create account</legend>
+          <label className={classes.formLabel} htmlFor="file">Add file</label>
+          <input id="file" placeholder="" className={classes.formItem} type="file"/>
+          <label className={classes.formLabel} htmlFor="text">Username</label>
+          <input id="name" className={classes.formItem} type="text" onChange={props.updateInput}/>
+          <label className={classes.formLabel} htmlFor="email">E-mail</label>
+          <input id="email" className={classes.formItem} type="email" onChange={props.updateInput}/>
+          <input id="submit" className={classes.formItem} value="Submit" type="submit"/>
+        </fieldset>
+      </form>
+    </section>
   );
 };
 

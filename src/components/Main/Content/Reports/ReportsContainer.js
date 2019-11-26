@@ -5,7 +5,8 @@ import {
   deleteTransactionActionCreator,
   getTotalTransactionsActionCreator,
   getTransactionsActionCreator,
-  setPageActionCreator, setPageLoadingActionCreator,
+  setPageActionCreator,
+  setPageLoadingActionCreator,
   showLessActionCreator,
   showMoreActionCreator
 } from '../../../../redux/report-reducer';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import {FaUserCircle} from 'react-icons/fa';
 import nav from './Navigation.module.css';
 
 const Navigation = () => {
@@ -10,7 +11,9 @@ const Navigation = () => {
         <NavLink className={nav.nav__link} to='/reports'>Reports</NavLink>
         <NavLink className={nav.nav__link} to='/statistics'>Statistics</NavLink>
         <NavLink className={nav.nav__link} to='/settings'>Settings</NavLink>
-        <NavLink className={nav.nav__link} to='/account'>Account</NavLink>
+        <NavLink className={nav.nav__link} to='/account'>
+          <FaUserCircle/>
+        </NavLink>
       </div>
     </nav>
   );
