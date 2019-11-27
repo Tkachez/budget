@@ -1,10 +1,10 @@
 import React from 'react';
 import classes from './Account.module.css';
 import { FaUserCircle } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const Account = (props) => {
 
-  console.log(props);
   let style = {
     verticalAlign: 'sub'
   };
@@ -24,6 +24,7 @@ const Account = (props) => {
           <input id="submit" className={classes.formItem} value="Submit" type="submit"/>
         </fieldset>
       </form>
+      <NavLink to='/account/login'>Already have account? Log in Here</NavLink>
     </section>
   );
 };

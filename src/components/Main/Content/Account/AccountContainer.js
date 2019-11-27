@@ -16,6 +16,7 @@ class AccountContainer extends React.Component {
    *
    */
   componentDidMount () {
+    console.log(this.props);
     axios.get(`http://localhost:5000/users/Tkach`).then( res => {this.props.setUser(res.data)})
     .catch( err => console.log(`Error: ${err}`))
   }
@@ -54,7 +55,8 @@ class AccountContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    account: state.account
+    account: state.account,
+    login: state.login.isLoggedIn
   };
 };
 

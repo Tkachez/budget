@@ -31,7 +31,7 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
   },
-  profileImage: File,
+  profileImage: String,
   transactions: [transactionSchema]
 }, {
   timestamps: true,

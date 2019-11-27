@@ -5,7 +5,6 @@ const LOGOUT = 'LOGOUT';
 const UPDATE_INPUT = 'UPDATE_INPUT';
 
 let initialState = {
-  users: [],
   currentUser: {},
   isLoggedIn: false,
   profileImage: null,
@@ -58,7 +57,7 @@ const accountReducer = (state = initialState, action) => {
           item.id === action.id ?
             {
               ...item,
-              value: action.value
+              value: item.value
             } : false
         )
       };

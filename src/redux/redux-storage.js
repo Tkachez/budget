@@ -1,6 +1,7 @@
 import { combineReducers,createStore } from 'redux';
 import homeFormReducer from './home-form-reducer';
 import reportsReducer from './report-reducer';
+import loginReducer from './login-reducer';
 import statisticsReducer from './statistics-reducer';
 import accountReducer from  './account-reducer';
 
@@ -8,7 +9,8 @@ let reducers = combineReducers({
   homeForm: homeFormReducer,
   reports: reportsReducer,
   statistics: statisticsReducer,
-  account: accountReducer
+  account: accountReducer,
+  login: loginReducer,
 });
 
 let store = createStore(reducers);
