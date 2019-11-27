@@ -8,13 +8,12 @@ class LoginContainer extends React.Component{
   constructor (props){
     super(props);
     this.login = this.login.bind(this);
-    this.changeInput = this.changeInput.bind(this);
+    // this.changeInput = this.changeInput.bind(this);
   }
 
-  changeInput (event) {
-      console.log(event.target.value);
-      this.props.updateInput(event.target);
-  }
+  // changeInput (event) {
+  //     this.props.updateInput(event.target);
+  // }
 
   login(event) {
     event.preventDefault();
@@ -22,10 +21,11 @@ class LoginContainer extends React.Component{
   }
 
   render () {
+    console.log(this.props);
     return (
       this.props.login.isLoggedIn ? <Success/> : <Login
         {...this.props.login}
-        changeInput={this.changeInput}
+        changeInput={this.props.updateInput}
         login={this.login}/>
     );
   }

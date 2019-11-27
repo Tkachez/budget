@@ -3,6 +3,7 @@ import { Input, Label, Select } from './index';
 import classes from './FormItem.module.css';
 
 const FormItem = (props) => {
+    console.log(props);
   return (
     <div className={classes.item}>
       <Label for={props.data.id} label={props.data.label}/>

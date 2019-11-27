@@ -7,7 +7,7 @@ const Form = (props) => {
   /**
    *
    */
-  let items = props.items.map((item,index) => <FormItem data={item} key={index} onChange={props.inputChange}/>);
+  let items = props.items.map(item => <FormItem data={item} key={item.id} onChange={props.inputChange}/>);
 
   /**
    *

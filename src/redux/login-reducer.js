@@ -5,13 +5,15 @@ const UPDATE_INPUT = 'UPDATE_INPUT';
 
 let initialState = {
   user: {},
-  items: [
+  formItems: [
     {
       id: 'name',
+      origin: 'input',
       value: '',
     },
     {
       id: 'email',
+      origin: 'input',
       value: '',
     }
   ],
@@ -21,7 +23,6 @@ let initialState = {
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER: {
-      debugger;
       axios.get(`http://localhost:5000/users/`);
       return {
         ...state,
@@ -31,7 +32,7 @@ const loginReducer = (state = initialState, action) => {
     case UPDATE_INPUT: {
       return {
         ...state,
-        items: state.items.map(item => item.id === action.id ?
+        formItems: state.formItems.map(item => item.id === action.id ?
           {
           ...item,
           value: action.value
@@ -53,12 +54,12 @@ export const setUser = () => {
   );
 };
 
-export const updateInput = (target) => {
+export const updateInput = (event) => {
   return (
     {
       type: UPDATE_INPUT,
-      value: target.value,
-      id: target.id
+      value: event.target.value,
+      id: event.target.id
     }
   );
 };
