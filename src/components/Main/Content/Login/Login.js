@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Login.module.css';
-import FormItem from "../Home/Form/FormItem/FormItem";
+import FormItem from "../../../Elements/FormItem/FormItem";
 
 const Login = (props) => {
     let items = props.formItems.map(item =>
@@ -8,7 +8,7 @@ const Login = (props) => {
 
     return (
         <section className={classes.main}>
-            <form onSubmit={(e) => props.login(e)}>
+            <form onSubmit={props.checkUser}>
                 <fieldset>
                     <legend>Log in</legend>
                     {items}

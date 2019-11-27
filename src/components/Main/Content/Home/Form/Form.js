@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Form.module.css';
-import FormItem from './FormItem/FormItem'
+import FormItem from '../../../../Elements/FormItem/FormItem'
 
 const Form = (props) => {
 

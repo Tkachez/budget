@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+const CHECK_USER = 'CHECK_USER';
 const SET_USER = 'SET_USER';
 const UPDATE_INPUT = 'UPDATE_INPUT';
 
@@ -17,16 +16,27 @@ let initialState = {
       value: '',
     }
   ],
+  isChecking: false,
   isLoggedIn: false,
 };
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER: {
-      axios.get(`http://localhost:5000/users/`);
+    case CHECK_USER: {
       return {
         ...state,
-        user: action.user
+        isChecking: true
+      }
+    }
+    case SET_USER: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          name: action.name,
+          email: action.email
+        }
+
       }
     }
     case UPDATE_INPUT: {
@@ -34,10 +44,9 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         formItems: state.formItems.map(item => item.id === action.id ?
           {
-          ...item,
-          value: action.value
-        } : false )
-
+            ...item,
+            value: action.value
+          } : {...item })
       }
     }
     default: {
@@ -46,11 +55,21 @@ const loginReducer = (state = initialState, action) => {
   }
 };
 
-export const setUser = () => {
+export const checkUser = () => {
   return (
     {
-      type: SET_USER
+      type: SET_USER,
     }
+  );
+};
+
+export const setUser = (name,email) => {
+  return (
+      {
+        type: SET_USER,
+        name,
+        email
+      }
   );
 };
 
