@@ -1,32 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setUser, updateInput } from '../../../../redux/login-reducer';
+import { checkUser, setUser, updateInput } from '../../../../redux/login-reducer';
 import Success from './Success';
 import Login from './Login';
 
 class LoginContainer extends React.Component{
-  constructor (props){
+
+  constructor(props){
     super(props);
-    this.login = this.login.bind(this);
-    this.changeInput = this.changeInput.bind(this);
+    this.check = this.check.bind(this);
   }
 
-  changeInput (event) {
-      console.log(event.target.value);
-      this.props.updateInput(event.target);
-  }
-
-  login(event) {
+  check (event) {
     event.preventDefault();
-    this.props.setUser();
+    this.props.checkUser();
   }
-
+  /**
+   *
+   * @returns {*}
+   */
   render () {
+    console.log(this.props);
     return (
       this.props.login.isLoggedIn ? <Success/> : <Login
         {...this.props.login}
-        changeInput={this.changeInput}
-        login={this.login}/>
+        changeInput={this.props.updateInput}
+        checkUser={this.check}/>
     );
   }
 }
@@ -38,6 +37,7 @@ let mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps,{
+  checkUser,
   setUser,
   updateInput
 })(LoginContainer);
