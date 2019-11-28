@@ -11,20 +11,17 @@ import {
   showMoreActionCreator
 } from '../../../../redux/report-reducer';
 import React from 'react';
-import axios from 'axios';
-
+import { TransactionsApi } from '../../../../api/api';
 class ReportsContainer extends React.Component {
 
   /**
    *
    */
   componentDidMount () {
-    axios.get(`http://localhost:5000/transactions/all/${this.props.reports.pageLimit}/${this.props.reports.pageLimit * (
-      this.props.reports.page - 1)}`).then(res => {
-      this.props.getTransactions(res.data);
-    }).catch(err => console.log(err));
-    axios.get('http://localhost:5000/transactions/count').then(res => {
-      this.props.getTotalTransactions(res.data);
+    TransactionsApi.getTransactions(this.props.reports.pageLimit,this.props.reports.page)
+    .then(data => this.props.getTransactions(data)).catch(err => console.log(err));
+    TransactionsApi.getTransactionsCount().then(data => {
+      this.props.getTotalTransactions(data);
       this.props.setPageLoading(false);
     }).catch(err => console.log(err));
   }
@@ -35,8 +32,8 @@ class ReportsContainer extends React.Component {
    */
   updatePage (page) {
     this.setPageLoading(true);
-    axios.get(`http://localhost:5000/transactions/all/${this.pageLimit}/${this.pageLimit * (page - 1)}`).then(res => {
-      this.getTransactions(res.data);
+    TransactionsApi.getTransactions(this.pageLimit,page).then(data => {
+      this.getTransactions(data);
       this.setPageLoading(false);
     }).catch(err => console.log(err));
     this.setPage(page);
