@@ -24,10 +24,6 @@ const Reports = (props) => {
    */
   return (
     <section className={classes.wrapper}>
-      <div>
-        {pages.map(
-          page => <button className={props.page === page ? classes.selected : ''} onClick={() => props.updatePage(page)} key={page}>{page}</button>)}
-      </div>
       {props.transactions.length ? props.transactions.map((transaction, index) => {
           if (index < (
             props.pageLimit * props.page
@@ -49,6 +45,10 @@ const Reports = (props) => {
           return null;
         }
       ) : <div>There are no transactions yet</div>}
+      <div className={classes.pagination}>
+        {pages.map(
+            page => <button className={props.page === page ? classes.selected : ''} onClick={() => props.updatePage(page)} key={page}>{page}</button>)}
+      </div>
     </section>
   );    
 };

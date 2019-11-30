@@ -1,9 +1,10 @@
+import  { TransactionsApi }  from '../api/api';
 import axios from 'axios';
 
 const SET_PAGE_LOADING = 'SET_PAGE_LOADING';
-const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
+const SET_TRANSACTIONS = 'SET_TRANSACTIONS';
 const SET_PAGE = 'SET_PAGE';
-const GET_TOTAL_TRANSACTIONS= 'GET_TOTAL_PAGES';
+const SET_TOTAL_TRANSACTIONS = 'SET_TOTAL_TRANSACTIONS';
 const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
 const SHOW_MORE = 'SHOW_MORE';
 const SHOW_LESS = 'SHOW_LESS';
@@ -32,6 +33,7 @@ let initialState = {
   }
 };
 
+
 const reportsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_PAGE_LOADING: {
@@ -40,13 +42,13 @@ const reportsReducer = (state = initialState, action) => {
         isLoading: action.loading
       }
     }
-    case GET_TRANSACTIONS: {
+    case SET_TRANSACTIONS: {
       return {
         ...state,
         transactions: action.transactions
       };
     }
-    case GET_TOTAL_TRANSACTIONS: {
+    case SET_TOTAL_TRANSACTIONS: {
       return {
         ...state,
         totalTransactions: action.totalTransactions
@@ -109,7 +111,7 @@ const reportsReducer = (state = initialState, action) => {
 };
 
 
-export const setPageLoadingActionCreator = (loading) => {
+export const setPageLoading = (loading) => {
   return (
     {
       type: SET_PAGE_LOADING,
@@ -118,25 +120,25 @@ export const setPageLoadingActionCreator = (loading) => {
   );
 };
 
-export const getTransactionsActionCreator = (transactions) => {
+export const setTransactions = (transactions) => {
   return (
     {
-      type: GET_TRANSACTIONS,
+      type: SET_TRANSACTIONS,
       transactions
     }
   );
 };
 
-export const getTotalTransactionsActionCreator = (totalTransactions) => {
+export const setTotalTransactions = (totalTransactions) => {
   return (
       {
-        type: GET_TOTAL_TRANSACTIONS,
+        type: SET_TOTAL_TRANSACTIONS,
         totalTransactions
       }
   );
 };
 
-export const setPageActionCreator = (page) => {
+export const setPage = (page) => {
   return (
       {
         type: SET_PAGE,
@@ -145,7 +147,7 @@ export const setPageActionCreator = (page) => {
   );
 };
 
-export const deleteTransactionActionCreator = (event) => {
+export const deleteTransaction = (event) => {
   return (
     {
       type: DELETE_TRANSACTION,
@@ -154,7 +156,7 @@ export const deleteTransactionActionCreator = (event) => {
   );
 };
 
-export const showMoreActionCreator = (event) => {
+export const showMore = (event) => {
   return (
     {
       type: SHOW_MORE,
@@ -163,13 +165,42 @@ export const showMoreActionCreator = (event) => {
   );
 };
 
-export const showLessActionCreator = (event) => {
+export const showLess = (event) => {
   return (
     {
       type: SHOW_LESS,
       target: event.target
     }
   );
+};
+
+/**
+ *
+ * @param pageLimit
+ * @param page
+ * @returns {function(...[*]=)}
+ */
+export const getTransactions = (pageLimit,page) => {
+  return (dispatch) => {
+    TransactionsApi.getTransactions(pageLimit,page)
+        .then(data => {
+          dispatch(setTransactions(data));
+          dispatch(setPageLoading(false));
+        }).catch(err => console.log(err));
+  };
+};
+
+/**
+ *
+ * @returns {function(...[*]=)}
+ */
+export const getTotalTransactions = () => {
+  return (dispatch) => {
+    TransactionsApi.getTransactionsCount()
+        .then(data => {
+          dispatch(setTotalTransactions(data));
+        }).catch(err => console.log(err));
+  };
 };
 
 

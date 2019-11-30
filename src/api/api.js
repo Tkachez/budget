@@ -5,6 +5,10 @@ const instance = axios.create({
   timeout: 5000,
 });
 
+/**
+ *
+ * @type {{getTransactions(*, *): Promise<*>, addTransaction(): Promise<*>, getTransactionsCount(): Promise<*>}}
+ */
 export const TransactionsApi = {
   getTransactions (pageLimit,page) {
     return instance.get(`all/${pageLimit}/${pageLimit * (page - 1)}`).then(response => response.data);
@@ -12,8 +16,8 @@ export const TransactionsApi = {
   getTransactionsCount () {
     return instance.get(`count`).then(response => response.data);
   },
-  addTransaction() {
-    return instance.post(``).then(response => response.data);
+  deleteTransaction(transactionId) {
+    return instance.delete(`${transactionId}`).then(response => response.data);
   }
 };
 

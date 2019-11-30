@@ -2,28 +2,32 @@ import { connect } from 'react-redux';
 import Reports from './Reports';
 import Loader from 'react-loader-spinner';
 import {
-  deleteTransactionActionCreator,
-  getTotalTransactionsActionCreator,
-  getTransactionsActionCreator,
-  setPageActionCreator,
-  setPageLoadingActionCreator,
-  showLessActionCreator,
-  showMoreActionCreator
+  deleteTransaction,
+  getTotalTransactions,
+  getTransactions,
+  setPage,
+  setPageLoading,
+  showLess,
+  showMore
 } from '../../../../redux/report-reducer';
 import React from 'react';
-import { TransactionsApi } from '../../../../api/api';
+
 class ReportsContainer extends React.Component {
 
   /**
    *
+   * @param props
+   */
+  constructor(props) {
+    super(props);
+    this.updatePage = this.updatePage.bind(this);
+  }
+  /**
+   *
    */
   componentDidMount () {
-    TransactionsApi.getTransactions(this.props.reports.pageLimit,this.props.reports.page)
-    .then(data => this.props.getTransactions(data)).catch(err => console.log(err));
-    TransactionsApi.getTransactionsCount().then(data => {
-      this.props.getTotalTransactions(data);
-      this.props.setPageLoading(false);
-    }).catch(err => console.log(err));
+    this.props.getTransactions(this.props.reports.pageLimit,this.props.reports.page);
+    this.props.getTotalTransactions();
   }
 
   /**
@@ -31,12 +35,9 @@ class ReportsContainer extends React.Component {
    * @param page
    */
   updatePage (page) {
-    this.setPageLoading(true);
-    TransactionsApi.getTransactions(this.pageLimit,page).then(data => {
-      this.getTransactions(data);
-      this.setPageLoading(false);
-    }).catch(err => console.log(err));
-    this.setPage(page);
+    this.props.setPageLoading(true);
+    this.props.getTransactions(this.props.reports.pageLimit,page);
+    this.props.setPage(page);
   }
 
   /**
@@ -44,6 +45,10 @@ class ReportsContainer extends React.Component {
    * @return {*}
    */
   render () {
+    /**
+     *
+     * @type {{alignItems: string, display: string, width: string, justifyContent: string, height: string}}
+     */
     const loaderStyles = {
       width: '100%',
       height: '100%',
@@ -52,6 +57,9 @@ class ReportsContainer extends React.Component {
       justifyContent: 'center'
     };
 
+    /**
+     *
+     */
     return (
       !this.props.reports.isLoading ? <Reports
         setPage = {this.props.setPage}
@@ -73,36 +81,24 @@ class ReportsContainer extends React.Component {
   }
 }
 
+/**
+ *
+ * @param state
+ * @returns {{reports: reportsReducer}}
+ */
 let mapStateToProps = (state) => {
   return {
     reports: state.reports,
   };
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    setPageLoading: (loading) => {
-      dispatch(setPageLoadingActionCreator(loading));
-    },
-    getTransactions: (transactions) => {
-      dispatch(getTransactionsActionCreator(transactions));
-    },
-    getTotalTransactions: (totalTransactions) => {
-      dispatch(getTotalTransactionsActionCreator(totalTransactions));
-    },
-    setPage: (page) => {
-      dispatch(setPageActionCreator(page));
-    },
-    deleteTransaction: (transactionId) => {
-      dispatch(deleteTransactionActionCreator(transactionId));
-    },
-    showMore: (event) => {
-      dispatch(showMoreActionCreator(event));
-    },
-    showLess: (event) => {
-      dispatch(showLessActionCreator(event));
-    },
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReportsContainer);
+export default connect(mapStateToProps, {
+  getTotalTransactions,
+  getTransactions,
+  deleteTransaction,
+  setPage,
+  setPageLoading,
+  showLess,
+  showMore
+})(ReportsContainer);
