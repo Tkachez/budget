@@ -1,0 +1,26 @@
+.main {
+    display: grid;
+    justify-content: center;
+    grid-template-rows: 2fr 1fr;
+}
+
+.profileImage {
+    font-size: 30rem;
+}
+
+.form {
+
+}
+
+.formLabel {
+    text-align: center;
+}
+
+.formItem {
+    margin: auto;
+}
+
+.fieldSet {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}

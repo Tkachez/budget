@@ -1,41 +1,17 @@
 import React from 'react';
-import Account from './Account';
 import { connect } from 'react-redux';
-import { setUser, login, logout, createUser, updateInput } from '../../../../redux/account-reducer';
-import axios from 'axios';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../../../hoc/withAuthRedirect';
+import { getUser } from '../../../../redux/account-reducer';
+import Account from './Account';
 
 class AccountContainer extends React.Component {
-
-  constructor(props){
-    super(props);
-    this.submitForm = this.submitForm.bind(this);
-    this.updateInput = this.updateInput.bind(this);
-  }
 
   /**
    *
    */
   componentDidMount () {
-    console.log(this.props);
-    axios.get(`http://localhost:5000/users/Tkach`).then( res => {this.props.setUser(res.data)})
-    .catch( err => console.log(`Error: ${err}`))
-  }
-
-  /**
-   *
-   * @param event
-   */
-  submitForm(event) {
-    event.preventDefault();
-    this.props.createUser();
-  }
-
-  /**
-   *
-   * @param event
-   */
-  updateInput(event) {
-    this.props.updateInput(event.target);
+    this.props.getUser(this.props.account.user);
   }
 
   /**
@@ -44,28 +20,22 @@ class AccountContainer extends React.Component {
    */
   render () {
     return (
-      <Account
-        {...this.props.account}
-        createUser={this.submitForm}
-        updateInput={this.updateInput}
-      />
+      <Account {...this.props.account}/>
     );
   }
 }
 
-let mapStateToProps = (state) => {
-  return {
-    account: state.account,
-    login: state.login.isLoggedIn
-  };
-};
+/**
+ *
+ * @param state
+ * @return {{account}}
+ */
+let mapStateToProps = (state) => ({
+  account: state.account
+});
 
+export default compose(
+  connect(mapStateToProps,{getUser}),
+  withAuthRedirect
+)(AccountContainer);
 
-
-export default connect(mapStateToProps, {
-  createUser,
-  setUser,
-  login,
-  logout,
-  updateInput,
-})(AccountContainer);

@@ -1,6 +1,8 @@
 import Form from './Form';
 import { inputsChangeActionCreator, submitFormActionCreator } from '../../../../../redux/home-form-reducer';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../../../../hoc/withAuthRedirect';
 
 
 let mapStateToProps = (state) => {
@@ -21,6 +23,7 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-const FormContainer = connect(mapStateToProps,mapDispatchToProps)(Form);
-
-export default FormContainer;
+export default compose(
+  connect(mapStateToProps,mapDispatchToProps),
+  withAuthRedirect
+)(Form);

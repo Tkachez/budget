@@ -1,9 +1,11 @@
+import { UsersApi } from '../api/users-api';
+
 const CHECK_USER = 'CHECK_USER';
 const SET_USER = 'SET_USER';
 const UPDATE_INPUT = 'UPDATE_INPUT';
 
 let initialState = {
-  user: {},
+  user: null,
   formItems: [
     {
       id: 'name',
@@ -55,14 +57,6 @@ const loginReducer = (state = initialState, action) => {
   }
 };
 
-export const checkUser = () => {
-  return (
-    {
-      type: SET_USER,
-    }
-  );
-};
-
 export const setUser = (name,email) => {
   return (
       {
@@ -81,6 +75,14 @@ export const updateInput = (event) => {
       id: event.target.id
     }
   );
+};
+
+export const initUserCheck = (username,email) => {
+  return (dispatch) => {
+    UsersApi.getCurrentUser(username,email).then(data => {
+      dispatch(setUser(data));
+    }).catch(err => console.log('Error: ' + err));
+  };
 };
 
 export default loginReducer;

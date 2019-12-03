@@ -1,20 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { checkUser, setUser, updateInput } from '../../../../redux/login-reducer';
-import Success from './Success';
+import { compose } from 'redux';
+import { initUserCheck, setUser, updateInput } from '../../../../../redux/login-reducer';
+import Success from '../../../../Elements/SuccessMessage/Success';
 import Login from './Login';
 
 class LoginContainer extends React.Component{
 
+  /**
+   *
+   * @param props
+   */
   constructor(props){
     super(props);
     this.check = this.check.bind(this);
   }
 
+  /**
+   *
+   * @param event
+   */
   check (event) {
     event.preventDefault();
-    this.props.checkUser();
+    this.props.initUserCheck();
   }
+
   /**
    *
    * @returns {*}
@@ -36,8 +46,6 @@ let mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps,{
-  checkUser,
-  setUser,
-  updateInput
-})(LoginContainer);
+export default compose(
+  connect(mapStateToProps,{initUserCheck,setUser,updateInput})
+)(LoginContainer);

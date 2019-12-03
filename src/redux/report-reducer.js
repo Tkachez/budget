@@ -1,4 +1,4 @@
-import  { TransactionsApi }  from '../api/api';
+import  { TransactionsApi }  from '../api/transactions-api';
 import axios from 'axios';
 
 const SET_PAGE_LOADING = 'SET_PAGE_LOADING';

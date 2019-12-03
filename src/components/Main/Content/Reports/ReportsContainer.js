@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import Reports from './Reports';
 import Loader from 'react-loader-spinner';
 import {
@@ -11,6 +12,7 @@ import {
   showMore
 } from '../../../../redux/report-reducer';
 import React from 'react';
+import { withAuthRedirect } from '../../../../hoc/withAuthRedirect';
 
 class ReportsContainer extends React.Component {
 
@@ -45,6 +47,7 @@ class ReportsContainer extends React.Component {
    * @return {*}
    */
   render () {
+
     /**
      *
      * @type {{alignItems: string, display: string, width: string, justifyContent: string, height: string}}
@@ -88,17 +91,20 @@ class ReportsContainer extends React.Component {
  */
 let mapStateToProps = (state) => {
   return {
-    reports: state.reports,
+    reports: state.reports
   };
 };
 
 
-export default connect(mapStateToProps, {
-  getTotalTransactions,
-  getTransactions,
-  deleteTransaction,
-  setPage,
-  setPageLoading,
-  showLess,
-  showMore
-})(ReportsContainer);
+export default compose(
+  connect(mapStateToProps, {
+    getTotalTransactions,
+    getTransactions,
+    deleteTransaction,
+    setPage,
+    setPageLoading,
+    showLess,
+    showMore
+  }),
+  withAuthRedirect
+)(ReportsContainer);

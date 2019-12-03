@@ -11,6 +11,8 @@ import {
   setHealthActionCreator
 } from '../../../../redux/statistics-reducer';
 import axios from 'axios';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../../../hoc/withAuthRedirect';
 
 class StatisticsContainer extends React.Component {
 
@@ -91,4 +93,7 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatisticsContainer);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
+)(StatisticsContainer);

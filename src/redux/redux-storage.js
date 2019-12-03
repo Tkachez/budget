@@ -4,14 +4,16 @@ import homeFormReducer from './home-form-reducer';
 import reportsReducer from './report-reducer';
 import loginReducer from './login-reducer';
 import statisticsReducer from './statistics-reducer';
-import accountReducer from  './account-reducer';
+import signUpReducer from  './signup-reducer';
+import accountReducer from './account-reducer';
 
 let reducers = combineReducers({
   homeForm: homeFormReducer,
   reports: reportsReducer,
   statistics: statisticsReducer,
-  account: accountReducer,
+  signUp: signUpReducer,
   login: loginReducer,
+  account: accountReducer
 });
 
 let store = createStore(reducers,applyMiddleware(thunkMiddleware));
