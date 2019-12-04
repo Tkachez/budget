@@ -20,7 +20,7 @@ class SignUpContainer extends React.Component {
    *
    */
   componentDidMount () {
-    
+
   }
 
   /**
@@ -69,5 +69,5 @@ let mapStateToProps = (state) => {
 
 
 export default compose(
-  connect(mapStateToProps, {createUser, getUser, updateInput,})
+  connect(mapStateToProps, {createUser, getUser, updateInput})
 )(SignUpContainer);

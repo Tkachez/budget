@@ -6,7 +6,7 @@ const instance = axios.create({
 });
 
 export const UsersApi = {
-  getCurrentUser(username){
-    return instance.get(`/${username}`).then(response => response.data);
+  getCurrentUser(username, email){
+    return instance.get(`/${username}/${email}`).then(response => response.data);
   }
 };

@@ -3,7 +3,7 @@ let User = require('../models/user.module');
 
 router.route('/:name/:email').get((req, res) => {
   User.findOne({
-    username:req.params.name,
+    username: req.params.name,
     email: req.params.email
   })
   .then(user => res.json(user))

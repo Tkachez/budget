@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { initUserCheck, setUser, updateInput } from '../../../../../redux/login-reducer';
-import Success from '../../../../Elements/SuccessMessage/Success';
 import Login from './Login';
+import { reduxForm } from 'redux-form';
+import { getUser } from '../../../../../redux/account-reducer';
+import Message from '../../../../Elements/Message/Message';
 
-class LoginContainer extends React.Component{
+class LoginContainer extends React.Component {
 
   /**
    *
@@ -13,39 +14,52 @@ class LoginContainer extends React.Component{
    */
   constructor(props){
     super(props);
-    this.check = this.check.bind(this);
+
+    this.submit = this.submit.bind(this);
   }
 
   /**
    *
-   * @param event
    */
-  check (event) {
-    event.preventDefault();
-    this.props.initUserCheck();
+  componentDidMount () {
+    this.setState({isLoggedIn: this.props.isLoggedIn});
   }
 
   /**
    *
-   * @returns {*}
+   * @param data
+   */
+  submit(data){
+    this.props.getUser(data.username, data.email);
+  };
+
+  /**
+   *
+   * @return {*}
    */
   render () {
     console.log(this.props);
     return (
-      this.props.login.isLoggedIn ? <Success/> : <Login
-        {...this.props.login}
-        changeInput={this.props.updateInput}
-        checkUser={this.check}/>
+      <div>
+        <LoginReduxForm onSubmit={this.submit}/>
+        {this.props.message ? <Message message={this.props.message}/> : null}
+      </div>
     );
   }
+
 }
+
+let LoginReduxForm = reduxForm({
+  form: 'login'
+})(Login);
 
 let mapStateToProps = (state) => {
   return {
-    login: state.login
+    isLoggedIn: state.account.isLoggedIn,
+    message: state.account.message
   };
 };
 
 export default compose(
-  connect(mapStateToProps,{initUserCheck,setUser,updateInput})
+  connect(mapStateToProps,{getUser})
 )(LoginContainer);

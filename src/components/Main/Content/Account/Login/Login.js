@@ -1,22 +1,20 @@
 import React from 'react';
 import classes from './Login.module.css';
-import FormItem from "../../../../Elements/FormItem/FormItem";
+import { Field } from 'redux-form';
+import Message from '../../../../Elements/Message/Message';
 
 const Login = (props) => {
-    let items = props.formItems.map(item =>
-        <FormItem data={item} key={item.id} onChange={props.changeInput}/>);
 
-    return (
-        <section className={classes.main}>
-            <form onSubmit={props.checkUser} className={classes.form} >
-                <fieldset>
-                    <legend>Log in</legend>
-                    {items}
-                    <button type='submit'>Submit</button>
-                </fieldset>
-            </form>
-        </section>
-    );
+  return (
+    <form onSubmit={props.handleSubmit} className={classes.form}>
+      <fieldset>
+        <legend>Log in</legend>
+        <Field name="username" component="input" type="text"/>
+        <Field name="email" component="input" type="text"/>
+        <button>Submit</button>
+      </fieldset>
+    </form>
+  );
 };
 
 export default Login;

@@ -2,7 +2,6 @@ import { combineReducers,createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import homeFormReducer from './home-form-reducer';
 import reportsReducer from './report-reducer';
-import loginReducer from './login-reducer';
 import statisticsReducer from './statistics-reducer';
 import signUpReducer from  './signup-reducer';
 import accountReducer from './account-reducer';
@@ -13,12 +12,11 @@ let reducers = combineReducers({
   reports: reportsReducer,
   statistics: statisticsReducer,
   signUp: signUpReducer,
-  login: loginReducer,
   account: accountReducer,
   form: formReducer
 });
 
 let store = createStore(reducers,applyMiddleware(thunkMiddleware));
-
+window.store = store;
 export default store;
 

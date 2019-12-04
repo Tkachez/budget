@@ -1,18 +1,33 @@
 import { UsersApi } from '../api/users-api';
-import { setUser } from './signup-reducer';
 
 const SET_USER = 'SET_USER';
+const SET_MESSAGE ='SET_MESSAGE';
+const LOGIN = 'LOGIN';
 
 let initialState = {
   isLoggedIn: false,
   user: null,
+  message: '',
 };
 
 const accountReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER: {
       return {
-
+        ...state,
+        user: action.user
+      }
+    }
+    case SET_MESSAGE: {
+      return {
+        ...state,
+        message: action.message
+      }
+    }
+    case LOGIN: {
+      return {
+        ...state,
+        isLoggedIn: true
       }
     }
     default: {
@@ -21,11 +36,45 @@ const accountReducer = (state = initialState, action) => {
   }
 };
 
-export const getUser = (username) => {
+const login = () => {
+  return (
+    {
+      type:LOGIN
+    }
+  );
+};
+
+const setUser = (user) => {
+  return (
+    {
+      type: SET_USER,
+      user
+    }
+  );
+};
+
+const setMessage = (message) => {
+  return (
+    {
+      type: SET_MESSAGE,
+      message
+    }
+  );
+};
+
+export const getUser = (username, email) => {
   return (dispatch) => {
-    UsersApi.getCurrentUser(username).then(data => {
-      dispatch(setUser(data))
-    }).catch( err => console.log('Error: ' + err));
+    UsersApi.getCurrentUser(username,email).then(data => {
+      if(data){
+        dispatch(setUser(data));
+        dispatch(setMessage(`Welcome back ${data.username}`));
+        dispatch(login());
+      } else {
+        dispatch(setMessage('User or password is incorrect!'));
+      }
+    }).catch( err => {
+      console.log('Error: ' + err);
+    });
   }
 };
 
