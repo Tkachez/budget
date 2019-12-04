@@ -20,7 +20,7 @@ class SignUpContainer extends React.Component {
    *
    */
   componentDidMount () {
-
+    
   }
 
   /**

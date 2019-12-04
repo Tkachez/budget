@@ -6,6 +6,7 @@ import loginReducer from './login-reducer';
 import statisticsReducer from './statistics-reducer';
 import signUpReducer from  './signup-reducer';
 import accountReducer from './account-reducer';
+import { reducer as formReducer } from 'redux-form';
 
 let reducers = combineReducers({
   homeForm: homeFormReducer,
@@ -13,7 +14,8 @@ let reducers = combineReducers({
   statistics: statisticsReducer,
   signUp: signUpReducer,
   login: loginReducer,
-  account: accountReducer
+  account: accountReducer,
+  form: formReducer
 });
 
 let store = createStore(reducers,applyMiddleware(thunkMiddleware));

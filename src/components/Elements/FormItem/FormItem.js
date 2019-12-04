@@ -3,6 +3,7 @@ import { Input, Label, Select } from './index';
 import classes from './FormItem.module.css';
 
 const FormItem = (props) => {
+  console.log(props.data);
   return (
     <div className={classes.item}>
       <Label for={props.data.id} label={props.data.label}/>
@@ -10,6 +11,7 @@ const FormItem = (props) => {
         <Input
           classes={classes.input}
           onChange={props.onChange}
+          placeholder={props.data.placeholder}
           value={props.data.value}
           type={props.data.type}
           min={props.data.min ? props.data.min : null }

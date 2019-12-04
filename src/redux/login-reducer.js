@@ -10,11 +10,13 @@ let initialState = {
     {
       id: 'name',
       origin: 'input',
+      placeholder: 'Name',
       value: '',
     },
     {
       id: 'email',
       origin: 'input',
+      placeholder: 'Email',
       value: '',
     }
   ],

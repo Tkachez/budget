@@ -28,6 +28,7 @@ let initialState = {
       {
         id: 'cost',
         origin: 'input',
+        placeholder: 'Transaction value',
         type: 'number',
         min: '0',
         name: 'purchase-value',
@@ -37,6 +38,7 @@ let initialState = {
       {
         id: 'comment',
         origin: 'input',
+        placeholder: 'Your comment',
         type: 'text',
         name: 'purchase-comment',
         label: 'Your comment (optional)',
