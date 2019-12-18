@@ -28,7 +28,7 @@ class ReportsContainer extends React.Component {
    *
    */
   componentDidMount () {
-    this.props.getTransactions(this.props.reports.pageLimit,this.props.reports.page);
+    this.props.getTransactions(this.props.user[0].id,this.props.reports.pageLimit,this.props.reports.page);
     this.props.getTotalTransactions();
   }
 
@@ -91,7 +91,8 @@ class ReportsContainer extends React.Component {
  */
 let mapStateToProps = (state) => {
   return {
-    reports: state.reports
+    reports: state.reports,
+    user: state.account.user
   };
 };
 

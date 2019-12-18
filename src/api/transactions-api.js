@@ -10,8 +10,8 @@ const instance = axios.create({
  * @type {{getTransactions(*, *): Promise<*>, addTransaction(): Promise<*>, getTransactionsCount(): Promise<*>}}
  */
 export const TransactionsApi = {
-  getTransactions (pageLimit,page) {
-    return instance.get(`all/${pageLimit}/${pageLimit * (page - 1)}`).then(response => response.data);
+  getTransactions (user_id,pageLimit,page) {
+    return instance.get(`user/${user_id}/${pageLimit}/${pageLimit * (page - 1)}`).then(response => response.data);
   },
   getTransactionsCount () {
     return instance.get(`count`).then(response => response.data);

@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './Login.module.css';
 import { Field } from 'redux-form';
-import Message from '../../../../Elements/Message/Message';
 
 const Login = (props) => {
 

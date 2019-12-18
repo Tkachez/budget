@@ -176,13 +176,14 @@ export const showLess = (event) => {
 
 /**
  *
+ * @param user_id
  * @param pageLimit
  * @param page
  * @returns {function(...[*]=)}
  */
-export const getTransactions = (pageLimit,page) => {
+export const getTransactions = (user_id,pageLimit,page) => {
   return (dispatch) => {
-    TransactionsApi.getTransactions(pageLimit,page)
+    TransactionsApi.getTransactions(user_id,pageLimit,page)
         .then(data => {
           dispatch(setTransactions(data));
           dispatch(setPageLoading(false));
